@@ -1,51 +1,72 @@
 ﻿@model TheNight_JustBuy.Models.Discount
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Discount Detail";
+    ViewBag.Function = "Discounts";
+    ViewBag.ChildFunction = "Discount Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Discount</h1>
 
-<div>
-    <h4>Discount</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DiscountName)
-        </dt>
+            <div class="card-tools">
+                <a class="btn btn-block btn-secondary float-right" href="~/Admin/Discounts">Back to List</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.DiscountID)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.DiscountID)
+                                </p>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.DiscountName)
-        </dd>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.DiscountName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.DiscountName)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.StartDate)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.StartDate)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.EndDate)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.EndDate)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Rate)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Rate)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rate)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DiscountID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -17,6 +17,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // GET: Admin/Users
         public ActionResult Index()
         {
+            var user = db.Users.Where(u=>u.Role == true);
             return View(db.Users.ToList());
         }
 
