@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0b7e7fdee854fb49f30fa5f0c2399f9" Name="Diagram1">
+        <EntityTypeShape EntityType="JustBuyModel.Address" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.Category" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.Configuration" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.Discount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.Feedback" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.OrderDetail" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.Order" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.ProductComment" Width="1.5" PointX="8.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.ProductImage" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.Product" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.Supplier" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustBuyModel.User" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="JustBuyModel.FK__Address__UserID__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__Products__Catego__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__Products__Discou__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__OrderDeta__Order__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__OrderDeta__Produ__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__Orders__UserID__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__ProductCo__Produ__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__ProductCo__UserI__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__ProductIm__Produ__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="JustBuyModel.FK__Products__Suppli__5535A963" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

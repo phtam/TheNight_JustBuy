@@ -1,0 +1,136 @@
+﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="~/admin" class="brand-link">
+        <img src="~/Content/dashboard/images/logo-mobile.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8" />
+        <span class="brand-text font-weight-light">Admin Dashboard</span>
+    </a>
+
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="" class="img-circle elevation-2" alt="User Image" />
+            </div>
+            <div class="info">
+                <a href="~/admin/profile" class="d-block">@ViewBag.FullName</a>
+            </div>
+        </div>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item menu-open">
+                    <a href="~/Admin/Home" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/icons8-dashboard-30.png" />
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/box.png" />
+                        <p>
+                            Configuration
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="~/Admin/Contacts" class="nav-link">
+                                <img src="~/Asset/dist/img/icons/contact.png" />
+                                <p>Slidebars</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/AboutUs" class="nav-link">
+                                <img src="~/Asset/dist/img/icons/aboutUs.png" />
+                                <p>Best Seller Banners</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/Payments" class="nav-link">
+                                <img src="~/Asset/dist/img/icons/payment.png" />
+                                <p>New Product Banners</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/Payments" class="nav-link">
+                                <img src="~/Asset/dist/img/icons/payment.png" />
+                                <p>Promotion Banners</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="~/Admin/Orders/" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/register.png" />
+                        <p>Feedback Management</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/userManage.png" />
+                        <p>User Management</p>
+                        <i class="fas fa-angle-left right"></i>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="~/Admin/Administrators" class="nav-link">
+                                <img src="~/Asset/dist/img/icons/administrator.png" />
+                                <p>Administrators</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/Instructors" class="nav-link">
+                                <img src="~/Asset/dist/img/icons/instructor.png" />
+                                <p>Customers</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="~/Admin/Orders/" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/register.png" />
+                        <p>Category Management</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="~/Admin/Orders/" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/register.png" />
+                        <p>Supplier Management</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="~/Admin/Orders/" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/register.png" />
+                        <p>Discount Management</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="~/Admin/Orders/" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/register.png" />
+                        <p>Product Management</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="~/Admin/Orders/" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/register.png" />
+                        <p>Order Management</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Logout", "Login")" class="nav-link">
+                        <img src="~/Asset/dist/img/icons/icons8-sign-out-30.png" />
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+
