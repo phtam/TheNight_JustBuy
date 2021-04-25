@@ -51,7 +51,11 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 db.Suppliers.Add(supplier);
-                db.SaveChanges();
+                if(db.SaveChanges()>0)
+                {
+                    //TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -83,7 +87,10 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(supplier).State = EntityState.Modified;
-                db.SaveChanges();
+                if(db.SaveChanges()>0)
+                {
+                    //TempData.Add(Common.CommonConstants.SAVE_SUCCESSFULLY, true);
+                }
                 return RedirectToAction("Index");
             }
             return View(supplier);
@@ -109,9 +116,19 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Supplier supplier = db.Suppliers.Find(id);
-            db.Suppliers.Remove(supplier);
-            db.SaveChanges();
+            try
+            {
+                Supplier supplier = db.Suppliers.Find(id);
+                db.Suppliers.Remove(supplier);
+                if(db.SaveChanges()>0)
+                {
+                    //TempData.Add(Common.CommonConstants.DELETE_SUCCESSFULLY, true);
+                }
+            }catch(Exception)
+            {
+                //TempData.Add(Common.CommonConstants.DELETE_FAILED, true);
+            }
+
             return RedirectToAction("Index");
         }
 

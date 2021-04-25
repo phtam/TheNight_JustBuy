@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -46,13 +47,35 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryImage")] Category category)
+        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryImage,ImageFile")] Category category)
         {
             if (ModelState.IsValid)
             {
+                string fileName = Path.GetFileNameWithoutExtension(category.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(category.ImageFile.FileName);
+
+                category.CategoryImage = "~/public/uploadedFiles/categoryPictures/" + fileName;
+
+                string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/categoryPictures/");
+
+                if (Directory.Exists(uploadFolderPath) == false)
+                {
+                    Directory.CreateDirectory(uploadFolderPath);
+                }
+
+                fileName = Path.Combine(uploadFolderPath, fileName);
+
+                category.ImageFile.SaveAs(fileName);
+
+
                 db.Categories.Add(category);
-                db.SaveChanges();
+
+                if (db.SaveChanges() > 0)
+                {
+                    //TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+                }
+
                 return RedirectToAction("Index");
+
             }
 
             return View(category);
@@ -66,6 +89,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Category category = db.Categories.Find(id);
+            //Session.Add(category.CommonConstants.TEMP_COURSE_IMAGE, cours.Thumbnail);
             if (category == null)
             {
                 return HttpNotFound();
