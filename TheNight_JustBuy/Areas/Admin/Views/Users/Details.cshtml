@@ -1,16 +1,16 @@
 ﻿@model TheNight_JustBuy.Models.User
 
 @{
-    ViewBag.Title = "Administrator Detail";
+    ViewBag.Title = "Users Detail";
     ViewBag.Function = "Users";
-    ViewBag.ChildFunction = "Administrator Detail";
+    ViewBag.ChildFunction = "Users Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Administrator</h1>
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Users</h1>
 
             <div class="card-tools">
                 <a class="btn btn-block btn-secondary float-right" href="~/Admin/Users">Back to List</a>
@@ -87,7 +87,7 @@
                                     <strong>@Html.DisplayNameFor(model => model.Birthday)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Birthday)
+                                    @Model.Birthday.Value.ToShortDateString()
                                 </p>
                             </div>
 
