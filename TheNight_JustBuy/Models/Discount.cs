@@ -11,7 +11,8 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Discount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +23,9 @@ namespace TheNight_JustBuy.Models
     
         public int DiscountID { get; set; }
         public string DiscountName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public Nullable<System.DateTime> StartDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> Rate { get; set; }
     
