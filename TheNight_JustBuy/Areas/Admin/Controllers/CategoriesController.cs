@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using TheNight_JustBuy.Common;
 using TheNight_JustBuy.Models;
 
 namespace TheNight_JustBuy.Areas.Admin.Controllers
@@ -71,7 +73,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
 
                 if (db.SaveChanges() > 0)
                 {
-                    //TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+                    TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
                 }
 
                 return RedirectToAction("Index");
@@ -89,7 +91,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Category category = db.Categories.Find(id);
-            //Session.Add(category.CommonConstants.TEMP_COURSE_IMAGE, cours.Thumbnail);
+            Session.Add(CommonConstants.TEMP_CATEGORY_IMAGE, category.CategoryImage);
             if (category == null)
             {
                 return HttpNotFound();
@@ -102,12 +104,56 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryImage")] Category category)
+        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryImage,ImageFile")] Category category)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    if (category.ImageFile == null)
+                    {
+                        category.CategoryImage = Session[CommonConstants.TEMP_CATEGORY_IMAGE].ToString();
+                    }
+                    else
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(category.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(category.ImageFile.FileName);
+
+                        category.CategoryImage = "~/public/uploadedFiles/categoryPictures/" + fileName;
+
+                        string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/categoryPictures/");
+
+                        if (Directory.Exists(uploadFolderPath) == false)
+                        {
+                            Directory.CreateDirectory(uploadFolderPath);
+                        }
+
+                        fileName = Path.Combine(uploadFolderPath, fileName);
+
+                        try
+                        {
+                            System.IO.File.Delete(Server.MapPath(Session[Common.CommonConstants.TEMP_CATEGORY_IMAGE].ToString()));
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        category.ImageFile.SaveAs(fileName);
+
+                    }
+
+                    if (db.SaveChanges() > 0)
+                    {
+                        Session.Remove(CommonConstants.TEMP_CATEGORY_IMAGE);
+                        TempData.Add(CommonConstants.SAVE_SUCCESSFULLY, true);
+                    }
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    TempData.Add(CommonConstants.SAVE_FAILED, true);
+                    ex.Entries.Single().Reload();
+                }
+
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -133,9 +179,23 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            
+            try
+            {
+                Category category = db.Categories.Find(id);
+                db.Categories.Remove(category);
+                db.SaveChanges();
+                try
+                {
+                    System.IO.File.Delete(Server.MapPath(category.CategoryImage));
+                }
+                catch (Exception) { }
+                TempData.Add(CommonConstants.DELETE_SUCCESSFULLY, true);
+            }
+            catch (Exception)
+            {
+                TempData.Add(CommonConstants.DELETE_FAILED, true);
+            }
             return RedirectToAction("Index");
         }
 
