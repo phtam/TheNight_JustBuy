@@ -1,5 +1,5 @@
-﻿//Coupon
-$("#tbl_Coupons").DataTable({
+﻿
+$("#tbl_Discounts").DataTable({
     "responsive": true,
     "autoWidth": false,
     "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -37,7 +37,6 @@ $("#tbl_Coupons").DataTable({
     ],
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
     "aoColumns": [
-        null,
         null,
         null,
         null,
