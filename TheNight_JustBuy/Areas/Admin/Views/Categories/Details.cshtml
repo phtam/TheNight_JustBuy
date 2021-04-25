@@ -1,35 +1,57 @@
 ﻿@model TheNight_JustBuy.Models.Category
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Category Detail";
+    ViewBag.Function = "Categories";
+    ViewBag.ChildFunction = "Category Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Category</h1>
 
-<div>
-    <h4>Category</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
+            <div class="card-tools">
+                <a class="btn btn-block btn-secondary float-right" href="~/Admin/Categories">Back to List</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.CategoryID)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.CategoryID)
+                                </p>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.CategoryName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.CategoryName)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.CategoryImage)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    <img src="@Url.Content(Model.CategoryImage)" width="500" />
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CategoryImage)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </div>
+        </div>
+    </div>
+</section>
