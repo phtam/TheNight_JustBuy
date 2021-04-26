@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -36,8 +37,78 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Create
-        public ActionResult Create()
+        public ActionResult Images(int ?id)
+        {
+            if (id == null && db.Products.Find(id) == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.ProductId = id;
+            var list = db.ProductImages.ToList();
+            ViewBag.List = list;
+            ViewBag.ProductName = db.Products.Find(id).ProductName;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Images(int ProductID, HttpPostedFileBase ImageFile)
+        {
+            ProductImage productImage = new ProductImage();
+            productImage.ProductID = ProductID;
+
+            string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(ImageFile.FileName);
+
+            String thumbnail = "~/public/uploadedFiles/productImagePictures/" + fileName;
+
+            string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/productImagePictures/");
+
+            if (Directory.Exists(uploadFolderPath) == false)
+            {
+                Directory.CreateDirectory(uploadFolderPath);
+            }
+
+            fileName = Path.Combine(uploadFolderPath, fileName);
+
+            ImageFile.SaveAs(fileName);
+            productImage.ImageFileName = thumbnail;
+
+            db.ProductImages.Add(productImage);
+            if (db.SaveChanges() > 0)
+                TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+            return RedirectToAction("Images", "Products", new { @id = ProductID });
+        }
+
+        [HttpPost, ActionName("DeleteImage")]
+        public ActionResult DeleteImage(int ImageId, int ProductId)
+        {
+            try
+            {
+                ProductImage productImage = db.ProductImages.Find(ImageId);
+                db.ProductImages.Remove(productImage);
+                if (db.SaveChanges() > 0)
+                {
+                    try
+                    {
+                        System.IO.File.Delete(Server.MapPath(productImage.ImageFileName));
+                    }
+                    catch (Exception) { }
+                    TempData.Add(Common.CommonConstants.DELETE_SUCCESSFULLY, true);
+                }
+            }
+            catch (Exception)
+            {
+                TempData.Add(Common.CommonConstants.DELETE_FAILED, true);
+            }
+
+            return RedirectToAction("Images", "Products", new { @id = ProductId });
+
+
+        }
+
+
+            // GET: Admin/Products/Create
+            public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.DiscountID = new SelectList(db.Discounts, "DiscountID", "DiscountName");
@@ -50,12 +121,31 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,DiscountID,Status")] Product product)
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,DiscountID,Status,ImageFile")] Product product)
         {
             if (ModelState.IsValid)
             {
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(product.ImageFile.FileName);
+
+                product.Thumbnail = "~/public/uploadedFiles/productsPictures/" + fileName;
+
+                string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/productsPictures/");
+
+                if (Directory.Exists(uploadFolderPath) == false)
+                {
+                    Directory.CreateDirectory(uploadFolderPath);
+                }
+
+                fileName = Path.Combine(uploadFolderPath, fileName);
+
+                product.ImageFile.SaveAs(fileName);
+
+
+
                 db.Products.Add(product);
-                db.SaveChanges();
+                if (db.SaveChanges() > 0)
+                    TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
                 return RedirectToAction("Index");
             }
 
@@ -80,6 +170,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             ViewBag.DiscountID = new SelectList(db.Discounts, "DiscountID", "DiscountName", product.DiscountID);
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", product.SupplierID);
+            Session["old_MainImage"] = product.Thumbnail;
             return View(product);
         }
 
@@ -88,12 +179,45 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,DiscountID,Status")] Product product)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,DiscountID,Status,ImageFile")] Product product, String old_MainImage)
         {
             if (ModelState.IsValid)
             {
+                if (product.ImageFile == null)
+                {
+                    product.Thumbnail = old_MainImage;
+                }
+                else
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(product.ImageFile.FileName);
+
+                    product.Thumbnail = "~/public/uploadedFiles/productsPictures/" + fileName;
+
+                    string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/productsPictures/");
+
+                    if (Directory.Exists(uploadFolderPath) == false)
+                    {
+                        Directory.CreateDirectory(uploadFolderPath);
+                    }
+
+                    fileName = Path.Combine(uploadFolderPath, fileName);
+
+                    try
+                    {
+                        System.IO.File.Delete(Server.MapPath(old_MainImage));
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    product.ImageFile.SaveAs(fileName);
+                }
+
                 db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                if (db.SaveChanges() > 0)
+                {
+                    TempData.Add(Common.CommonConstants.SAVE_SUCCESSFULLY, true);
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
@@ -122,9 +246,22 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
+            try
+            {
+                Product product = db.Products.Find(id);
+                db.Products.Remove(product);
+                db.SaveChanges();
+                try
+                {
+                    System.IO.File.Delete(Server.MapPath(product.Thumbnail));
+                }
+                catch (Exception) { }
+                TempData.Add(Common.CommonConstants.DELETE_SUCCESSFULLY, true);
+            }
+            catch (Exception)
+            {
+                TempData.Add(Common.CommonConstants.DELETE_FAILED, true);
+            }
             return RedirectToAction("Index");
         }
 

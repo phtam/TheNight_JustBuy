@@ -1,106 +1,183 @@
 ﻿@model IEnumerable<TheNight_JustBuy.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Products";
+    ViewBag.Manage = "Manage Product";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Data of Products</h3>
+                <p>
+                    <a class="btn btn-success btn-sm float-right" href="~/Admin/Products/Create">
+                        <i class="fas fa-plus">
+                        </i>
+                        Create New
+                    </a>
+                </p>
+            </div>
+            <div class="card-body">
+                <table id="tblProduct" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Thumbnail)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Supplier.CompanyName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Discount.DiscountName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UnitPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OldUnitPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UnitsInStock)
+                            </th>
+                            <th>
+                                Sell
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            <td>
+                                <img src="@Url.Content(item.Thumbnail)" width="150" height="100" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discount.DiscountName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OldUnitPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitsInStock)
+                            </td>
+                            <td>
+                                @if (item.Status == false)
+                                {
+                                    <span class="badge badge-danger">Stop selling</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success">Being sold</span>
+                                }
+                            </td>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OldUnitPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Thumbnail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitsInStock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LaunchDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VotedAverageMark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discount.DiscountName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Supplier.CompanyName)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OldUnitPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShortDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Thumbnail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitsInStock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LaunchDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VotedAverageMark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discount.DiscountName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
-        </td>
-    </tr>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-warning btn-sm btn-block" href="~/Admin/Products/Images/@item.ProductID">
+                                    <i class="fas fa-image">
+                                    </i>
+                                    Image
+                                </a>
+                                <a class="btn btn-primary btn-sm btn-block" href="~/Admin/Products/Details/@item.ProductID">
+                                    <i class="fas fa-eye">
+                                    </i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm btn-block" href="~/Admin/Products/Edit/@item.ProductID">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm btn-block" href="~/Admin/Products/Delete/@item.ProductID">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/datatable")
+    @Scripts.Render("~/asset/scripts/datatable")
+    <script src="~/Asset/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="~/Asset/ajaxChangeSatus/user.js"></script>
+    <script>
+        $("#tblProduct").DataTable({
+            "destroy": true,
+            "responsive": true,
+            "autoWidth": false,
+            "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                { Width: '80px' }
+            ],
+
+        });
+
+
+    </script>
 }
-
-</table>

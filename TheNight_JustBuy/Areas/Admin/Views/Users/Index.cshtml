@@ -2,8 +2,8 @@
 
 
 @{
-    ViewBag.Title = "Manage Administrators";
-    ViewBag.Manage = "Manage Administrators";
+    ViewBag.Title = "Manage Users";
+    ViewBag.Manage = "Manage User";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     string isChecked = "";
 }
@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data of Administrators</h3>
+                <h3 class="card-title">Data of Users</h3>
                 <p>
                     <a class="btn btn-success btn-sm float-right" href="~/Admin/Users/Create">
                         <i class="fas fa-plus">
@@ -22,7 +22,7 @@
                 </p>
             </div>
             <div class="card-body">
-                <table id="tbl_Admin" class="table table-bordered table-striped">
+                <table id="UserTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>
@@ -109,10 +109,15 @@
                                         isChecked = "";
                                     }
                                 }
-                                <input type="checkbox" data-id="@item.Username" data-on-text="active" data-off-text="block" id="chkStatus" name="my-checkbox" @isChecked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                <input type="checkbox" data-id="@item.UserID" data-on-text="active" data-off-text="block" id="chkStatus" name="my-checkbox" @isChecked data-bootstrap-switch data-off-color="danger" data-on-color="success">
                             </td>
 
                             <td class="project-actions text-right">
+                                <a class="btn btn-dark btn-sm btn-block" href="~/Admin/Users/Address/@item.UserID">
+                                    <i class="fas fa-address-book">
+                                    </i>
+                                    Address
+                                </a>
                                 <a class="btn btn-primary btn-sm btn-block" href="~/Admin/Users/Details/@item.UserID">
                                     <i class="fas fa-eye">
                                     </i>
@@ -143,9 +148,10 @@
 {
     @Styles.Render("~/asset/css/datatable")
     @Scripts.Render("~/asset/scripts/datatable")
+    <script src="~/Asset/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <script src="~/Asset/ajaxChangeSatus/user.js"></script>
     <script>
-        $("#tbl_Admin").DataTable({
+        $("#UserTable").DataTable({
             "destroy": true,
             "responsive": true,
             "autoWidth": false,
@@ -198,5 +204,7 @@
             ],
 
         });
+
+        
     </script>
 }
