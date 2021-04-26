@@ -46,14 +46,6 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    @Html.LabelFor(model => model.DiscountID, "Discount Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.DropDownList("DiscountID", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.DiscountID, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
                                     @Html.LabelFor(model => model.LaunchDate, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         <input type="datetime-local" class="form-control" value="@Html.DisplayFor(modelItem => modelItem.LaunchDate)" name="LaunchDate" />

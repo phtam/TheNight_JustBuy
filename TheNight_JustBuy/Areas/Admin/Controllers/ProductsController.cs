@@ -19,7 +19,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // GET: Admin/Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.Discount).Include(p => p.Supplier);
+            var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
             return View(products.ToList());
         }
 
@@ -112,7 +112,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            ViewBag.DiscountID = new SelectList(db.Discounts, "DiscountID", "DiscountName");
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName");
             return View();
         }
@@ -123,7 +122,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,DiscountID,Status,ImageFile")] ProductModelForCreate product)
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,Status,ImageFile")] ProductModelForCreate product)
         {
             if (ModelState.IsValid)
             {
@@ -151,7 +150,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.DiscountID = new SelectList(db.Discounts, "DiscountID", "DiscountName", product.DiscountID);
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", product.SupplierID);
             return View(product);
         }
@@ -170,7 +168,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             }
             Session.Add(Common.CommonConstants.TEMP_PRODUCT_IMAGE, product.Thumbnail);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.DiscountID = new SelectList(db.Discounts, "DiscountID", "DiscountName", product.DiscountID);
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", product.SupplierID);
             return View(new ProductModelForEdit(product));
         }
@@ -181,7 +178,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,DiscountID,Status,ImageFile")] ProductModelForEdit product)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,UnitPrice,OldUnitPrice,ShortDescription,Description,Thumbnail,UnitsInStock,LaunchDate,VotedAverageMark,SupplierID,CategoryID,Status,ImageFile")] ProductModelForEdit product)
         {
             if (ModelState.IsValid)
             {
@@ -227,7 +224,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 p.LaunchDate = product.LaunchDate;
                 p.SupplierID = product.SupplierID;
                 p.CategoryID = product.CategoryID;
-                p.DiscountID = product.DiscountID;
                 p.Status = product.Status;
 
                 if (db.SaveChanges() > 0)
@@ -238,7 +234,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.DiscountID = new SelectList(db.Discounts, "DiscountID", "DiscountName", product.DiscountID);
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", product.SupplierID);
             return View(product);
         }

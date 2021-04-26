@@ -46,7 +46,6 @@ namespace TheNight_JustBuy.Areas.Admin.Models
         [DisplayName("Category")]
         public Nullable<int> CategoryID { get; set; }
         [DisplayName("Discount")]
-        public Nullable<int> DiscountID { get; set; }
         public Nullable<bool> Status { get; set; }
         [ImageValidationForCreate]
         public HttpPostedFileBase ImageFile { get; set; }

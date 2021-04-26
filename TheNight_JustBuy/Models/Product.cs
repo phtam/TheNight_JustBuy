@@ -39,7 +39,6 @@ namespace TheNight_JustBuy.Models
             this.VotedAverageMark = product.VotedAverageMark;
             this.SupplierID = product.SupplierID;
             this.CategoryID = product.CategoryID;
-            this.DiscountID = product.DiscountID;
             this.Status = product.Status;
         }
 

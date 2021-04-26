@@ -30,7 +30,6 @@ namespace TheNight_JustBuy.Areas.Admin.Models
             this.VotedAverageMark = product.VotedAverageMark;
             this.SupplierID = product.SupplierID;
             this.CategoryID = product.CategoryID;
-            this.DiscountID = product.DiscountID;
             this.Status = product.Status;
         }
 
@@ -65,7 +64,6 @@ namespace TheNight_JustBuy.Areas.Admin.Models
         [DisplayName("Category")]
         public Nullable<int> CategoryID { get; set; }
         [DisplayName("Discount")]
-        public Nullable<int> DiscountID { get; set; }
         public Nullable<bool> Status { get; set; }
         [ImageValidationForUpdate]
         public HttpPostedFileBase ImageFile { get; set; }
