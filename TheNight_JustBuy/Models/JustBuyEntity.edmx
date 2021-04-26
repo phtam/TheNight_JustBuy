@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="JustBuyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="JustBuyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressID" />
@@ -15,6 +15,38 @@
           <Property Name="City" Type="nvarchar" MaxLength="25" />
           <Property Name="District" Type="nvarchar" MaxLength="25" />
           <Property Name="ZipCode" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="BlogCategories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BlogComments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="BlogID" Type="int" />
+          <Property Name="Content" Type="text" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Blogs">
+          <Key>
+            <PropertyRef Name="BlogID" />
+          </Key>
+          <Property Name="BlogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BlogName" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="Content" Type="text" />
+          <Property Name="Thumbnail" Type="text" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -127,7 +159,7 @@
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirtName" Type="nvarchar" MaxLength="20" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
           <Property Name="LastName" Type="nvarchar" MaxLength="20" />
           <Property Name="Password" Type="nvarchar" MaxLength="255" />
           <Property Name="CreditCard" Type="nvarchar" MaxLength="30" />
@@ -140,7 +172,7 @@
           <Property Name="Status" Type="bit" />
           <Property Name="Cart" Type="text" />
         </EntityType>
-        <Association Name="FK__Address__UserID__4CA06362">
+        <Association Name="FK__Address__UserID__4222D4EF">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
           <ReferentialConstraint>
@@ -152,7 +184,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Order__4D94879B">
+        <Association Name="FK__BlogComme__BlogI__3E52440B">
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="0..1" />
+          <End Role="BlogComments" Type="Self.BlogComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="BlogID" />
+            </Principal>
+            <Dependent Role="BlogComments">
+              <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BlogComme__UserI__3F466844">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="BlogComments" Type="Self.BlogComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BlogComments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blogs__CategoryI__403A8C7D">
+          <End Role="BlogCategories" Type="Self.BlogCategories" Multiplicity="0..1" />
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogCategories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blogs__UserID__412EB0B6">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Order__4316F928">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -164,7 +244,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Produ__4E88ABD4">
+        <Association Name="FK__OrderDeta__Produ__440B1D61">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -176,7 +256,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__UserID__4F7CD00D">
+        <Association Name="FK__Orders__UserID__44FF419A">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -188,7 +268,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductCo__Produ__5070F446">
+        <Association Name="FK__ProductCo__Produ__45F365D3">
           <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="ProductComments" Type="Self.ProductComments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -200,7 +280,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductCo__UserI__5165187F">
+        <Association Name="FK__ProductCo__UserI__46E78A0C">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="ProductComments" Type="Self.ProductComments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -212,7 +292,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductIm__Produ__52593CB8">
+        <Association Name="FK__ProductIm__Produ__47DBAE45">
           <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="ProductImages" Type="Self.ProductImages" Multiplicity="*" />
           <ReferentialConstraint>
@@ -224,7 +304,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Catego__534D60F1">
+        <Association Name="FK__Products__Catego__48CFD27E">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -236,7 +316,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Discou__5441852A">
+        <Association Name="FK__Products__Discou__49C3F6B7">
           <End Role="Discounts" Type="Self.Discounts" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -248,7 +328,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Suppli__5535A963">
+        <Association Name="FK__Products__Suppli__4AB81AF0">
           <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -262,6 +342,9 @@
         </Association>
         <EntityContainer Name="JustBuyModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlogCategories" EntityType="Self.BlogCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlogComments" EntityType="Self.BlogComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration" EntityType="Self.Configuration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discounts" EntityType="Self.Discounts" Schema="dbo" store:Type="Tables" />
@@ -273,52 +356,140 @@
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Address__UserID__4CA06362" Association="Self.FK__Address__UserID__4CA06362">
+          <AssociationSet Name="FK__Address__UserID__4222D4EF" Association="Self.FK__Address__UserID__4222D4EF">
             <End Role="Users" EntitySet="Users" />
             <End Role="Address" EntitySet="Address" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Order__4D94879B" Association="Self.FK__OrderDeta__Order__4D94879B">
+          <AssociationSet Name="FK__BlogComme__BlogI__3E52440B" Association="Self.FK__BlogComme__BlogI__3E52440B">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="BlogComments" EntitySet="BlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BlogComme__UserI__3F466844" Association="Self.FK__BlogComme__UserI__3F466844">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlogComments" EntitySet="BlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blogs__CategoryI__403A8C7D" Association="Self.FK__Blogs__CategoryI__403A8C7D">
+            <End Role="BlogCategories" EntitySet="BlogCategories" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blogs__UserID__412EB0B6" Association="Self.FK__Blogs__UserID__412EB0B6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Order__4316F928" Association="Self.FK__OrderDeta__Order__4316F928">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Produ__4E88ABD4" Association="Self.FK__OrderDeta__Produ__4E88ABD4">
+          <AssociationSet Name="FK__OrderDeta__Produ__440B1D61" Association="Self.FK__OrderDeta__Produ__440B1D61">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserID__4F7CD00D" Association="Self.FK__Orders__UserID__4F7CD00D">
+          <AssociationSet Name="FK__Orders__UserID__44FF419A" Association="Self.FK__Orders__UserID__44FF419A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductCo__Produ__5070F446" Association="Self.FK__ProductCo__Produ__5070F446">
+          <AssociationSet Name="FK__ProductCo__Produ__45F365D3" Association="Self.FK__ProductCo__Produ__45F365D3">
             <End Role="Products" EntitySet="Products" />
             <End Role="ProductComments" EntitySet="ProductComments" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductCo__UserI__5165187F" Association="Self.FK__ProductCo__UserI__5165187F">
+          <AssociationSet Name="FK__ProductCo__UserI__46E78A0C" Association="Self.FK__ProductCo__UserI__46E78A0C">
             <End Role="Users" EntitySet="Users" />
             <End Role="ProductComments" EntitySet="ProductComments" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductIm__Produ__52593CB8" Association="Self.FK__ProductIm__Produ__52593CB8">
+          <AssociationSet Name="FK__ProductIm__Produ__47DBAE45" Association="Self.FK__ProductIm__Produ__47DBAE45">
             <End Role="Products" EntitySet="Products" />
             <End Role="ProductImages" EntitySet="ProductImages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Products__Catego__534D60F1" Association="Self.FK__Products__Catego__534D60F1">
+          <AssociationSet Name="FK__Products__Catego__48CFD27E" Association="Self.FK__Products__Catego__48CFD27E">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Products__Discou__5441852A" Association="Self.FK__Products__Discou__5441852A">
+          <AssociationSet Name="FK__Products__Discou__49C3F6B7" Association="Self.FK__Products__Discou__49C3F6B7">
             <End Role="Discounts" EntitySet="Discounts" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Products__Suppli__5535A963" Association="Self.FK__Products__Suppli__5535A963">
+          <AssociationSet Name="FK__Products__Suppli__4AB81AF0" Association="Self.FK__Products__Suppli__4AB81AF0">
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="JustBuyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="JustBuyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="JustBuyModel.Address" />
+          <EntitySet Name="BlogCategories" EntityType="JustBuyModel.BlogCategory" />
+          <EntitySet Name="BlogComments" EntityType="JustBuyModel.BlogComment" />
+          <EntitySet Name="Blogs" EntityType="JustBuyModel.Blog" />
+          <EntitySet Name="Categories" EntityType="JustBuyModel.Category" />
+          <EntitySet Name="Configurations" EntityType="JustBuyModel.Configuration" />
+          <EntitySet Name="Discounts" EntityType="JustBuyModel.Discount" />
+          <EntitySet Name="Feedbacks" EntityType="JustBuyModel.Feedback" />
+          <EntitySet Name="OrderDetails" EntityType="JustBuyModel.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="JustBuyModel.Order" />
+          <EntitySet Name="ProductComments" EntityType="JustBuyModel.ProductComment" />
+          <EntitySet Name="ProductImages" EntityType="JustBuyModel.ProductImage" />
+          <EntitySet Name="Products" EntityType="JustBuyModel.Product" />
+          <EntitySet Name="Suppliers" EntityType="JustBuyModel.Supplier" />
+          <EntitySet Name="Users" EntityType="JustBuyModel.User" />
+          <AssociationSet Name="FK__Address__UserID__4222D4EF" Association="JustBuyModel.FK__Address__UserID__4222D4EF">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blogs__CategoryI__403A8C7D" Association="JustBuyModel.FK__Blogs__CategoryI__403A8C7D">
+            <End Role="BlogCategory" EntitySet="BlogCategories" />
+            <End Role="Blog" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BlogComme__BlogI__3E52440B" Association="JustBuyModel.FK__BlogComme__BlogI__3E52440B">
+            <End Role="Blog" EntitySet="Blogs" />
+            <End Role="BlogComment" EntitySet="BlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BlogComme__UserI__3F466844" Association="JustBuyModel.FK__BlogComme__UserI__3F466844">
+            <End Role="User" EntitySet="Users" />
+            <End Role="BlogComment" EntitySet="BlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blogs__UserID__412EB0B6" Association="JustBuyModel.FK__Blogs__UserID__412EB0B6">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Blog" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Catego__48CFD27E" Association="JustBuyModel.FK__Products__Catego__48CFD27E">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Discou__49C3F6B7" Association="JustBuyModel.FK__Products__Discou__49C3F6B7">
+            <End Role="Discount" EntitySet="Discounts" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Order__4316F928" Association="JustBuyModel.FK__OrderDeta__Order__4316F928">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Produ__440B1D61" Association="JustBuyModel.FK__OrderDeta__Produ__440B1D61">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__UserID__44FF419A" Association="JustBuyModel.FK__Orders__UserID__44FF419A">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductCo__Produ__45F365D3" Association="JustBuyModel.FK__ProductCo__Produ__45F365D3">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductComment" EntitySet="ProductComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductCo__UserI__46E78A0C" Association="JustBuyModel.FK__ProductCo__UserI__46E78A0C">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProductComment" EntitySet="ProductComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductIm__Produ__47DBAE45" Association="JustBuyModel.FK__ProductIm__Produ__47DBAE45">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductImage" EntitySet="ProductImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Suppli__4AB81AF0" Association="JustBuyModel.FK__Products__Suppli__4AB81AF0">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressID" />
@@ -329,7 +500,45 @@
           <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="District" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="ZipCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Address__UserID__4CA06362" FromRole="Address" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="JustBuyModel.FK__Address__UserID__4222D4EF" FromRole="Address" ToRole="User" />
+        </EntityType>
+        <EntityType Name="BlogCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Blogs" Relationship="JustBuyModel.FK__Blogs__CategoryI__403A8C7D" FromRole="BlogCategory" ToRole="Blog" />
+        </EntityType>
+        <EntityType Name="BlogComment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="BlogID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Blog" Relationship="JustBuyModel.FK__BlogComme__BlogI__3E52440B" FromRole="BlogComment" ToRole="Blog" />
+          <NavigationProperty Name="User" Relationship="JustBuyModel.FK__BlogComme__UserI__3F466844" FromRole="BlogComment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="BlogID" />
+          </Key>
+          <Property Name="BlogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BlogName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="ShortDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Thumbnail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="BlogCategory" Relationship="JustBuyModel.FK__Blogs__CategoryI__403A8C7D" FromRole="Blog" ToRole="BlogCategory" />
+          <NavigationProperty Name="BlogComments" Relationship="JustBuyModel.FK__BlogComme__BlogI__3E52440B" FromRole="Blog" ToRole="BlogComment" />
+          <NavigationProperty Name="User" Relationship="JustBuyModel.FK__Blogs__UserID__412EB0B6" FromRole="Blog" ToRole="User" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -338,7 +547,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="CategoryImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Products__Catego__534D60F1" FromRole="Categories" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="JustBuyModel.FK__Products__Catego__48CFD27E" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Configuration">
           <Key>
@@ -357,7 +566,7 @@
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="Rate" Type="Int32" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Products__Discou__5441852A" FromRole="Discounts" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="JustBuyModel.FK__Products__Discou__49C3F6B7" FromRole="Discount" ToRole="Product" />
         </EntityType>
         <EntityType Name="Feedback">
           <Key>
@@ -378,8 +587,8 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="UnitPrice" Type="Int32" />
           <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__OrderDeta__Order__4D94879B" FromRole="OrderDetails" ToRole="Orders" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__OrderDeta__Produ__4E88ABD4" FromRole="OrderDetails" ToRole="Products" />
+          <NavigationProperty Name="Order" Relationship="JustBuyModel.FK__OrderDeta__Order__4316F928" FromRole="OrderDetail" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="JustBuyModel.FK__OrderDeta__Produ__440B1D61" FromRole="OrderDetail" ToRole="Product" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -390,8 +599,8 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int32" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__4D94879B" FromRole="Orders" ToRole="OrderDetails" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Orders__UserID__4F7CD00D" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="OrderDetails" Relationship="JustBuyModel.FK__OrderDeta__Order__4316F928" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="User" Relationship="JustBuyModel.FK__Orders__UserID__44FF419A" FromRole="Order" ToRole="User" />
         </EntityType>
         <EntityType Name="ProductComment">
           <Key>
@@ -403,8 +612,8 @@
           <Property Name="VotedMark" Type="Int32" />
           <Property Name="CommentedDate" Type="DateTime" Precision="3" />
           <Property Name="ProductID" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__ProductCo__Produ__5070F446" FromRole="ProductComments" ToRole="Products" />
-          <NavigationProperty Name="User" Relationship="Self.FK__ProductCo__UserI__5165187F" FromRole="ProductComments" ToRole="Users" />
+          <NavigationProperty Name="Product" Relationship="JustBuyModel.FK__ProductCo__Produ__45F365D3" FromRole="ProductComment" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="JustBuyModel.FK__ProductCo__UserI__46E78A0C" FromRole="ProductComment" ToRole="User" />
         </EntityType>
         <EntityType Name="ProductImage">
           <Key>
@@ -413,7 +622,7 @@
           <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ImageFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProductID" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__ProductIm__Produ__52593CB8" FromRole="ProductImages" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="JustBuyModel.FK__ProductIm__Produ__47DBAE45" FromRole="ProductImage" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -433,12 +642,12 @@
           <Property Name="CategoryID" Type="Int32" />
           <Property Name="DiscountID" Type="Int32" />
           <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Products__Catego__534D60F1" FromRole="Products" ToRole="Categories" />
-          <NavigationProperty Name="Discount" Relationship="Self.FK__Products__Discou__5441852A" FromRole="Products" ToRole="Discounts" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Produ__4E88ABD4" FromRole="Products" ToRole="OrderDetails" />
-          <NavigationProperty Name="ProductComments" Relationship="Self.FK__ProductCo__Produ__5070F446" FromRole="Products" ToRole="ProductComments" />
-          <NavigationProperty Name="ProductImages" Relationship="Self.FK__ProductIm__Produ__52593CB8" FromRole="Products" ToRole="ProductImages" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK__Products__Suppli__5535A963" FromRole="Products" ToRole="Suppliers" />
+          <NavigationProperty Name="Category" Relationship="JustBuyModel.FK__Products__Catego__48CFD27E" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Discount" Relationship="JustBuyModel.FK__Products__Discou__49C3F6B7" FromRole="Product" ToRole="Discount" />
+          <NavigationProperty Name="OrderDetails" Relationship="JustBuyModel.FK__OrderDeta__Produ__440B1D61" FromRole="Product" ToRole="OrderDetail" />
+          <NavigationProperty Name="ProductComments" Relationship="JustBuyModel.FK__ProductCo__Produ__45F365D3" FromRole="Product" ToRole="ProductComment" />
+          <NavigationProperty Name="ProductImages" Relationship="JustBuyModel.FK__ProductIm__Produ__47DBAE45" FromRole="Product" ToRole="ProductImage" />
+          <NavigationProperty Name="Supplier" Relationship="JustBuyModel.FK__Products__Suppli__4AB81AF0" FromRole="Product" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -450,15 +659,15 @@
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Products__Suppli__5535A963" FromRole="Suppliers" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="JustBuyModel.FK__Products__Suppli__4AB81AF0" FromRole="Supplier" ToRole="Product" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirtName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreditCard" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
@@ -470,15 +679,17 @@
           <Property Name="Role" Type="Boolean" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Cart" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Addresses" Relationship="Self.FK__Address__UserID__4CA06362" FromRole="Users" ToRole="Address" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserID__4F7CD00D" FromRole="Users" ToRole="Orders" />
-          <NavigationProperty Name="ProductComments" Relationship="Self.FK__ProductCo__UserI__5165187F" FromRole="Users" ToRole="ProductComments" />
+          <NavigationProperty Name="Addresses" Relationship="JustBuyModel.FK__Address__UserID__4222D4EF" FromRole="User" ToRole="Address" />
+          <NavigationProperty Name="BlogComments" Relationship="JustBuyModel.FK__BlogComme__UserI__3F466844" FromRole="User" ToRole="BlogComment" />
+          <NavigationProperty Name="Blogs" Relationship="JustBuyModel.FK__Blogs__UserID__412EB0B6" FromRole="User" ToRole="Blog" />
+          <NavigationProperty Name="Orders" Relationship="JustBuyModel.FK__Orders__UserID__44FF419A" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="ProductComments" Relationship="JustBuyModel.FK__ProductCo__UserI__46E78A0C" FromRole="User" ToRole="ProductComment" />
         </EntityType>
-        <Association Name="FK__Address__UserID__4CA06362">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+        <Association Name="FK__Address__UserID__4222D4EF">
+          <End Type="JustBuyModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JustBuyModel.Address" Role="Address" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="UserID" />
             </Principal>
             <Dependent Role="Address">
@@ -486,168 +697,162 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Catego__534D60F1">
-          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+        <Association Name="FK__Blogs__CategoryI__403A8C7D">
+          <End Type="JustBuyModel.BlogCategory" Role="BlogCategory" Multiplicity="0..1" />
+          <End Type="JustBuyModel.Blog" Role="Blog" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categories">
+            <Principal Role="BlogCategory">
               <PropertyRef Name="CategoryID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Blog">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Discou__5441852A">
-          <End Role="Discounts" Type="Self.Discount" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+        <Association Name="FK__BlogComme__BlogI__3E52440B">
+          <End Type="JustBuyModel.Blog" Role="Blog" Multiplicity="0..1" />
+          <End Type="JustBuyModel.BlogComment" Role="BlogComment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Discounts">
+            <Principal Role="Blog">
+              <PropertyRef Name="BlogID" />
+            </Principal>
+            <Dependent Role="BlogComment">
+              <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BlogComme__UserI__3F466844">
+          <End Type="JustBuyModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JustBuyModel.BlogComment" Role="BlogComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BlogComment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blogs__UserID__412EB0B6">
+          <End Type="JustBuyModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JustBuyModel.Blog" Role="Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Blog">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Catego__48CFD27E">
+          <End Type="JustBuyModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="JustBuyModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Discou__49C3F6B7">
+          <End Type="JustBuyModel.Discount" Role="Discount" Multiplicity="0..1" />
+          <End Type="JustBuyModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
               <PropertyRef Name="DiscountID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Product">
               <PropertyRef Name="DiscountID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Order__4D94879B">
-          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+        <Association Name="FK__OrderDeta__Order__4316F928">
+          <End Type="JustBuyModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="JustBuyModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Orders">
+            <Principal Role="Order">
               <PropertyRef Name="OrderID" />
             </Principal>
-            <Dependent Role="OrderDetails">
+            <Dependent Role="OrderDetail">
               <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Produ__4E88ABD4">
-          <End Role="Products" Type="Self.Product" Multiplicity="1" />
-          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+        <Association Name="FK__OrderDeta__Produ__440B1D61">
+          <End Type="JustBuyModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="JustBuyModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Products">
+            <Principal Role="Product">
               <PropertyRef Name="ProductID" />
             </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__UserID__4F7CD00D">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ProductCo__Produ__5070F446">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductComments" Type="Self.ProductComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="ProductComments">
+            <Dependent Role="OrderDetail">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductCo__UserI__5165187F">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ProductComments" Type="Self.ProductComment" Multiplicity="*" />
+        <Association Name="FK__Orders__UserID__44FF419A">
+          <End Type="JustBuyModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JustBuyModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="ProductComments">
+            <Dependent Role="Order">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductIm__Produ__52593CB8">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductImages" Type="Self.ProductImage" Multiplicity="*" />
+        <Association Name="FK__ProductCo__Produ__45F365D3">
+          <End Type="JustBuyModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="JustBuyModel.ProductComment" Role="ProductComment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Products">
+            <Principal Role="Product">
               <PropertyRef Name="ProductID" />
             </Principal>
-            <Dependent Role="ProductImages">
+            <Dependent Role="ProductComment">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Suppli__5535A963">
-          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+        <Association Name="FK__ProductCo__UserI__46E78A0C">
+          <End Type="JustBuyModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JustBuyModel.ProductComment" Role="ProductComment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Suppliers">
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ProductComment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductIm__Produ__47DBAE45">
+          <End Type="JustBuyModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="JustBuyModel.ProductImage" Role="ProductImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Suppli__4AB81AF0">
+          <End Type="JustBuyModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="JustBuyModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
               <PropertyRef Name="SupplierID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Product">
               <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="JustBuyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Addresses" EntityType="Self.Address" />
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Configurations" EntityType="Self.Configuration" />
-          <EntitySet Name="Discounts" EntityType="Self.Discount" />
-          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
-          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="ProductComments" EntityType="Self.ProductComment" />
-          <EntitySet Name="ProductImages" EntityType="Self.ProductImage" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Address__UserID__4CA06362" Association="Self.FK__Address__UserID__4CA06362">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Address" EntitySet="Addresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Products__Catego__534D60F1" Association="Self.FK__Products__Catego__534D60F1">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Products__Discou__5441852A" Association="Self.FK__Products__Discou__5441852A">
-            <End Role="Discounts" EntitySet="Discounts" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Order__4D94879B" Association="Self.FK__OrderDeta__Order__4D94879B">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Produ__4E88ABD4" Association="Self.FK__OrderDeta__Produ__4E88ABD4">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserID__4F7CD00D" Association="Self.FK__Orders__UserID__4F7CD00D">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProductCo__Produ__5070F446" Association="Self.FK__ProductCo__Produ__5070F446">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductComments" EntitySet="ProductComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProductCo__UserI__5165187F" Association="Self.FK__ProductCo__UserI__5165187F">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ProductComments" EntitySet="ProductComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProductIm__Produ__52593CB8" Association="Self.FK__ProductIm__Produ__52593CB8">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductImages" EntitySet="ProductImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Products__Suppli__5535A963" Association="Self.FK__Products__Suppli__5535A963">
-            <End Role="Suppliers" EntitySet="Suppliers" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -657,146 +862,181 @@
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="JustBuyModel.Address">
               <MappingFragment StoreEntitySet="Address">
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AddressDetail" ColumnName="AddressDetail" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="District" ColumnName="District" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressDetail" ColumnName="AddressDetail" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlogCategories">
+            <EntityTypeMapping TypeName="JustBuyModel.BlogCategory">
+              <MappingFragment StoreEntitySet="BlogCategories">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlogComments">
+            <EntityTypeMapping TypeName="JustBuyModel.BlogComment">
+              <MappingFragment StoreEntitySet="BlogComments">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="BlogID" ColumnName="BlogID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="JustBuyModel.Blog">
+              <MappingFragment StoreEntitySet="Blogs">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BlogName" ColumnName="BlogName" />
+                <ScalarProperty Name="BlogID" ColumnName="BlogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="JustBuyModel.Category">
               <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryImage" ColumnName="CategoryImage" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configurations">
             <EntityTypeMapping TypeName="JustBuyModel.Configuration">
               <MappingFragment StoreEntitySet="Configuration">
-                <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
-                <ScalarProperty Name="ConfigName" ColumnName="ConfigName" />
                 <ScalarProperty Name="ImageFileName" ColumnName="ImageFileName" />
+                <ScalarProperty Name="ConfigName" ColumnName="ConfigName" />
+                <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Discounts">
             <EntityTypeMapping TypeName="JustBuyModel.Discount">
               <MappingFragment StoreEntitySet="Discounts">
-                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
-                <ScalarProperty Name="DiscountName" ColumnName="DiscountName" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="DiscountName" ColumnName="DiscountName" />
+                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Feedbacks">
             <EntityTypeMapping TypeName="JustBuyModel.Feedback">
               <MappingFragment StoreEntitySet="Feedbacks">
-                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="JustBuyModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="JustBuyModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductComments">
             <EntityTypeMapping TypeName="JustBuyModel.ProductComment">
               <MappingFragment StoreEntitySet="ProductComments">
-                <ScalarProperty Name="ProductCommentID" ColumnName="ProductCommentID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="VotedMark" ColumnName="VotedMark" />
-                <ScalarProperty Name="CommentedDate" ColumnName="CommentedDate" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CommentedDate" ColumnName="CommentedDate" />
+                <ScalarProperty Name="VotedMark" ColumnName="VotedMark" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductCommentID" ColumnName="ProductCommentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductImages">
             <EntityTypeMapping TypeName="JustBuyModel.ProductImage">
               <MappingFragment StoreEntitySet="ProductImages">
-                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
-                <ScalarProperty Name="ImageFileName" ColumnName="ImageFileName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ImageFileName" ColumnName="ImageFileName" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="JustBuyModel.Product">
               <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
-                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
-                <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
-                <ScalarProperty Name="LaunchDate" ColumnName="LaunchDate" />
-                <ScalarProperty Name="VotedAverageMark" ColumnName="VotedAverageMark" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="VotedAverageMark" ColumnName="VotedAverageMark" />
+                <ScalarProperty Name="LaunchDate" ColumnName="LaunchDate" />
+                <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="JustBuyModel.Supplier">
               <MappingFragment StoreEntitySet="Suppliers">
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="JustBuyModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="FirtName" ColumnName="FirtName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="CreditCard" ColumnName="CreditCard" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Cart" ColumnName="Cart" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CreditCard" ColumnName="CreditCard" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

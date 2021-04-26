@@ -11,15 +11,11 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class OrderDetail
     {
-        [DisplayName("Order ID")]
         public int OrderID { get; set; }
-        [DisplayName("Product ID")]
         public int ProductID { get; set; }
-        [DisplayName("Unit Price")]
         public Nullable<int> UnitPrice { get; set; }
         public Nullable<int> Quantity { get; set; }
     

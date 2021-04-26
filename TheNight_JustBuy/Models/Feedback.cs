@@ -11,28 +11,13 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Feedback
     {
-        [DisplayName("Feedback ID")]
         public int FeedbackID { get; set; }
-        [DisplayName("Full Name")]
-        [Required(ErrorMessage = "Please enter a valid full name!")]
-        [StringLength(maximumLength: 60, MinimumLength = 3, ErrorMessage = "The full name must be between 3 and 60 characters long.")]
         public string FullName { get; set; }
-
-
-        [Required(ErrorMessage = "Please enter a valid subject!")]
-        [StringLength(maximumLength: 250, MinimumLength = 3, ErrorMessage = "The subject must be between 3 and 250 characters long.")]
         public string Subject { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid email!")]
-        [StringLength(maximumLength: 60, MinimumLength = 6, ErrorMessage = "The email must be between 6 and 60 characters long.")]
-        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "The email is incorrect format. Try again, please!")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Please enter a valid content!")]
-        [StringLength(maximumLength: 250, MinimumLength = 3, ErrorMessage = "The content must be between 3 and 250 characters long.")]
         public string Content { get; set; }
     }
 }

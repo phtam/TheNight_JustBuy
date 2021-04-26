@@ -11,8 +11,6 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     public partial class User
@@ -21,19 +19,19 @@ namespace TheNight_JustBuy.Models
         public User()
         {
             this.Addresses = new HashSet<Address>();
+            this.BlogComments = new HashSet<BlogComment>();
+            this.Blogs = new HashSet<Blog>();
             this.Orders = new HashSet<Order>();
             this.ProductComments = new HashSet<ProductComment>();
         }
     
         public int UserID { get; set; }
         public string Username { get; set; }
-        public string FirtName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
         public string CreditCard { get; set; }
         public Nullable<bool> Gender { get; set; }
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [DisplayName("Date of birth")]
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
@@ -45,6 +43,10 @@ namespace TheNight_JustBuy.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BlogComment> BlogComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Blog> Blogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

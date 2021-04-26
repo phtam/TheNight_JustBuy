@@ -12,22 +12,16 @@ namespace TheNight_JustBuy.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class BlogComment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Order()
-        {
-            this.OrderDetails = new HashSet<OrderDetail>();
-        }
-    
-        public int OrderID { get; set; }
+        public int CommentID { get; set; }
         public Nullable<int> UserID { get; set; }
+        public Nullable<int> BlogID { get; set; }
+        public string Content { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string Note { get; set; }
-        public Nullable<int> Status { get; set; }
+        public Nullable<bool> Status { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual Blog Blog { get; set; }
         public virtual User User { get; set; }
     }
 }

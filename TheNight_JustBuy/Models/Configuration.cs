@@ -11,16 +11,12 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Web;
 
     public partial class Configuration
     {
-        [DisplayName("Config ID")]
         public int ConfigID { get; set; }
-        [DisplayName("Config Name")]
         public string ConfigName { get; set; }
-        [DisplayName("Image")]
         public string ImageFileName { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }
