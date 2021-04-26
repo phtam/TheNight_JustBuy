@@ -155,6 +155,8 @@
     <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
     <Compile Include="Areas\Admin\Models\BlogModelForCreate.cs" />
     <Compile Include="Areas\Admin\Models\BlogModelForEdit.cs" />
+    <Compile Include="Areas\Admin\Models\ProductModelForCreate.cs" />
+    <Compile Include="Areas\Admin\Models\ProductModelForEdit.cs" />
     <Compile Include="Areas\Admin\Models\UserModelForCreate.cs" />
     <Compile Include="Areas\Admin\Models\UserModelForEdit.cs" />
     <Compile Include="Common\CommonConstants.cs" />

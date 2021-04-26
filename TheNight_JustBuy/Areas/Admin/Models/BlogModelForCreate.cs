@@ -14,6 +14,7 @@ namespace TheNight_JustBuy.Areas.Admin.Models
         {
         }
 
+        [DisplayName("Blog ID")]
         public int BlogID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid blog name!")]

@@ -11,13 +11,18 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class BlogComment
     {
+        [DisplayName("Comment ID")]
         public int CommentID { get; set; }
+        [DisplayName("User ID")]
         public Nullable<int> UserID { get; set; }
+        [DisplayName("Blog ID")]
         public Nullable<int> BlogID { get; set; }
         public string Content { get; set; }
+        [DisplayName("Created Date")]
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<bool> Status { get; set; }
     
