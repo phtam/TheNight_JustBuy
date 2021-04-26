@@ -405,7 +405,6 @@
     <Content Include="Content\jsControllers\jsChangeStatusCourses.js" />
     <Content Include="Content\jsControllers\jsChangeStatusExamination.js" />
     <Content Include="Content\jsControllers\jsCourses.js" />
-    <Content Include="Content\jsControllers\jsDatatable.js" />
     <Content Include="Content\jsControllers\jsExamination.js" />
     <Content Include="Content\jsControllers\jsQuestion.js" />
     <Content Include="Content\jsControllers\jsValidateData.js" />
