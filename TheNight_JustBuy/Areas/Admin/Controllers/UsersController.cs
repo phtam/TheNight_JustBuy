@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Scrypt;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +19,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // GET: Admin/Users
         public ActionResult Index()
         {
-            var user = db.Users.Where(u=>u.Role == true);
+            var user = db.Users.Where(u => u.Role == true);
             return View(db.Users.ToList());
         }
 
@@ -36,7 +38,37 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(user);
         }
 
-        // GET: Admin/Users/Create
+        public ActionResult Address(int? id)
+        {
+            if (id != null && db.Users.Find(id) != null)
+            {
+                ViewBag.UserId = id;
+                var list = db.Addresses.ToList();
+                ViewBag.List = list;
+                ViewBag.Username = db.Users.Find(id).Username;
+                return View();
+            }
+            return RedirectToAction("Index");
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Address([Bind(Include = "AddressID,UserID,AddressDetail,City,District,ZipCode")] Address address)
+        {
+            if (ModelState.IsValid)
+            {
+
+                db.Addresses.Add(address);
+                if (db.SaveChanges() > 0)
+                    TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+                return RedirectToAction("Address", "Users", new { @id = address.UserID });
+            }
+
+            return RedirectToAction("Address", "Users", new { @id = address.UserID });
+        }
+
+        
         public ActionResult Create()
         {
             return View();
@@ -47,12 +79,34 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,Username,FirtName,LastName,Password,CreditCard,Gender,Birthday,Phone,Email,Avatar,Role,Status,Cart")] User user)
+        public ActionResult Create([Bind(Include = "UserID,Username,FirtName,LastName,Password,CreditCard,Gender,Birthday,Phone,Email,Avatar,ImageFile")] User user)
         {
             if (ModelState.IsValid)
             {
+
+                string fileName = Path.GetFileNameWithoutExtension(user.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(user.ImageFile.FileName);
+
+                user.Avatar = "~/public/uploadedFiles/userPictures/" + fileName;
+
+                string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/userPictures/");
+
+                if (Directory.Exists(uploadFolderPath) == false)
+                {
+                    Directory.CreateDirectory(uploadFolderPath);
+                }
+
+                fileName = Path.Combine(uploadFolderPath, fileName);
+
+                user.ImageFile.SaveAs(fileName);
+
+                ScryptEncoder encoder = new ScryptEncoder();
+                user.Password = encoder.Encode(user.Password);
+                user.Role = true;
+                user.Status = true;
+
                 db.Users.Add(user);
-                db.SaveChanges();
+                if (db.SaveChanges() > 0)
+                    TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
                 return RedirectToAction("Index");
             }
 
@@ -71,6 +125,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            Session["OldImage_User"] = user.Avatar;
             return View(user);
         }
 
@@ -79,12 +134,44 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,Username,FirtName,LastName,Password,CreditCard,Gender,Birthday,Phone,Email,Avatar,Role,Status,Cart")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,Username,FirtName,LastName,CreditCard,Gender,Birthday,Phone,Email,Avatar,Status,ImageFile")] User user, String imageOldFile_User)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                if (user.ImageFile == null)
+                {
+                    user.Avatar = imageOldFile_User;
+                }
+                else
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(user.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(user.ImageFile.FileName);
+
+                    user.Avatar = "~/public/uploadedFiles/userPictures/" + fileName;
+
+                    string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/userPictures/");
+
+                    if (Directory.Exists(uploadFolderPath) == false)
+                    {
+                        Directory.CreateDirectory(uploadFolderPath);
+                    }
+
+                    fileName = Path.Combine(uploadFolderPath, fileName);
+
+                    try
+                    {
+                        System.IO.File.Delete(Server.MapPath(imageOldFile_User));
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    user.ImageFile.SaveAs(fileName);
+                }
+                user.Role = true;
+                db.Entry(user).State = EntityState.Modified;          
+                if (db.SaveChanges() > 0)
+                {
+                    TempData.Add(Common.CommonConstants.SAVE_SUCCESSFULLY, true);
+                }
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -110,9 +197,23 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
+
+            try
+            {
+                User user = db.Users.Find(id);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                try
+                {
+                    System.IO.File.Delete(Server.MapPath(user.Avatar));
+                }
+                catch (Exception) { }
+                TempData.Add(Common.CommonConstants.DELETE_SUCCESSFULLY, true);
+            }
+            catch (Exception)
+            {
+                TempData.Add(Common.CommonConstants.DELETE_FAILED, true);
+            }
             return RedirectToAction("Index");
         }
 

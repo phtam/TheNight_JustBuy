@@ -1,123 +1,157 @@
 ﻿@model TheNight_JustBuy.Models.Product
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Products Detail";
+    ViewBag.Function = "Products";
+    ViewBag.ChildFunction = "Products Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Products</h1>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
+            <div class="card-tools">
+                <a class="btn btn-block btn-secondary float-right" href="~/Admin/Products">Back to List</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                    <div class="row">
+                        <div class="col-12">
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ProductID)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ProductID)
+                                </div>
+                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitPrice)
-        </dt>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ProductName)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ProductName)
+                                </div>
+                            </div>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.LaunchDate)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.LaunchDate)
+                                </div>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.UnitPrice)
-        </dd>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Supplier.CompanyName)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Supplier.CompanyName)
+                                </div>
+                            </div>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Category.CategoryName)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Category.CategoryName)
+                                </div>
+                            </div>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Discount.DiscountName)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Discount.DiscountName)
+                                </div>
+                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OldUnitPrice)
-        </dt>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.UnitPrice)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.UnitPrice)
+                                </div>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.OldUnitPrice)
-        </dd>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.OldUnitPrice)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.OldUnitPrice)
+                                </div>
+                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </dt>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ShortDescription)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ShortDescription)
+                                </div>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShortDescription)
-        </dd>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Description)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.Raw(Model.Description)
+                                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.UnitsInStock)</strong>:
+                                </div>
+                                <div class="col-sm-10">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Thumbnail)
-        </dt>
+                                    @Html.DisplayFor(model => model.UnitsInStock)
 
-        <dd>
-            @Html.DisplayFor(model => model.Thumbnail)
-        </dd>
+                                </div>
+                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitsInStock)
-        </dt>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Status)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @if (Model.Status == false)
+                                    {
+                                        <div>Stop Selling</div>
+                                    }
+                                    else
+                                    {
+                                        <div>Being Sold</div>
+                                    }
+                                </div>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.UnitsInStock)
-        </dd>
+                            <div class="post row">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    <img class="img-responsive" src="@Url.Content(Model.Thumbnail)" alt="" style="max-width: 300px" />
+                                </div>
+                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LaunchDate)
-        </dt>
+                        </div>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LaunchDate)
-        </dd>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VotedAverageMark)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VotedAverageMark)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Discount.DiscountName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Discount.DiscountName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Supplier.CompanyName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Supplier.CompanyName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
