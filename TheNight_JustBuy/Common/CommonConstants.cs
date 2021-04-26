@@ -15,6 +15,7 @@ namespace TheNight_JustBuy.Common
         public static string TEMP_CATEGORY_IMAGE = "TEMP_CATEGORY_IMAGE";
         public static string TEMP_CONFIGURATION_IMAGE = "TEMP_CONFIGURATION_IMAGE";
         public static string TEMP_BLOG_IMAGE = "TEMP_BLOG_IMAGE";
+        public static string TEMP_PRODUCT_IMAGE = "TEMP_PRODUCT_IMAGE";
 
     }
 }

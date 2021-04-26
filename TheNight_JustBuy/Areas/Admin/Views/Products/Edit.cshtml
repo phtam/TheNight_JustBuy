@@ -1,9 +1,9 @@
-﻿@model TheNight_JustBuy.Models.Product
+﻿@model TheNight_JustBuy.Areas.Admin.Models.ProductModelForEdit
 
 @{
-    ViewBag.Title = "Edit Course";
-    ViewBag.Function = "Courses";
-    ViewBag.ChildFunction = "Edit Course";
+    ViewBag.Title = "Edit Product";
+    ViewBag.Function = "Products";
+    ViewBag.ChildFunction = "Edit Product";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,7 +13,7 @@
             <div class="col-md-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Course</h3>
+                        <h3 class="card-title">Edit Product</h3>
                     </div>
                     @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
@@ -110,7 +110,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" name="old_MainImage" value="@Session["old_MainImage"]" />
 
                                 <div class="form-group row">
                                     @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })

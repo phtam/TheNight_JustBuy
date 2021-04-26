@@ -13,6 +13,7 @@ namespace TheNight_JustBuy.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
+    using TheNight_JustBuy.Areas.Admin.Models;
 
     public partial class Product
     {
@@ -23,6 +24,26 @@ namespace TheNight_JustBuy.Models
             this.ProductComments = new HashSet<ProductComment>();
             this.ProductImages = new HashSet<ProductImage>();
         }
+
+        public Product(ProductModelForCreate product)
+        {
+            this.ProductID = product.ProductID;
+            this.ProductName = product.ProductName;
+            this.UnitPrice = product.UnitPrice;
+            this.OldUnitPrice = product.OldUnitPrice;
+            this.ShortDescription = product.ShortDescription;
+            this.Description = product.Description;
+            this.Thumbnail = product.Thumbnail;
+            this.UnitsInStock = product.UnitsInStock;
+            this.LaunchDate = product.LaunchDate;
+            this.VotedAverageMark = product.VotedAverageMark;
+            this.SupplierID = product.SupplierID;
+            this.CategoryID = product.CategoryID;
+            this.DiscountID = product.DiscountID;
+            this.Status = product.Status;
+        }
+
+     
     
         public int ProductID { get; set; }
         public string ProductName { get; set; }
