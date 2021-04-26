@@ -1,0 +1,147 @@
+﻿@model IEnumerable<TheNight_JustBuy.Models.BlogComment>
+
+@{
+    ViewBag.Title = "Manage Blog Comments";
+    ViewBag.Manage = "Manage Blog Comments";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    string isChecked = "";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Data of Blog Comments</h3>
+            </div>
+            <div class="card-body">
+                <table id="BlogCommentTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.User.Username)
+                            </th>
+                            <th>
+                                Full name
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Blog.BlogName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Content)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Blog.BlogName)
+                                </td>
+                                <td>
+                                    @Html.Raw(item.Content)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                </td>
+                                <td>
+                                    @if (item.Status == true)
+                                    {
+                                        isChecked = "checked";
+                                    }
+                                    else
+                                    {
+                                        isChecked = "";
+                                    }
+                                    <input type="checkbox" data-id="@item.CommentID" data-on-text="show" data-off-text="hide" id="chkStatus" name="my-checkbox" @isChecked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                </td>
+
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="~/Admin/BlogComments/Details/@item.CommentID">
+                                        <i class="fas fa-eye">
+                                        </i>
+                                        View
+                                    </a><a class="btn btn-danger btn-sm" href="~/Admin/BlogComments/Delete/@item.CommentID">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/datatable")
+    @Scripts.Render("~/asset/scripts/datatable")
+    <script src="~/Asset/ajaxChangeSatus/blogComment.js"></script>
+    <script>
+        $("#BlogCommentTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "width": "15%", "targets": 0 }
+            ]
+        });
+    </script>
+}

@@ -1,0 +1,87 @@
+﻿@model TheNight_JustBuy.Models.ProductComment
+
+@{
+    ViewBag.Title = "Product Comment Detail";
+    ViewBag.Function = "ProductComments";
+    ViewBag.ChildFunction = "Product Comment Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Product Comments</h1>
+            <div class="card-tools">
+                <a class="btn btn-block btn-secondary float-right" href="~/Admin/ProductComments">Back to List</a>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ProductCommentID)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ProductCommentID)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Product.ProductName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Product.ProductName)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Product.Thumbnail)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    <img class="img-responsive" src="@Url.Content(Model.Product.Thumbnail)" style="max-width: 300px" />
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.User.Username)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.User.Username)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Content)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.Raw(Model.Content)
+                                </div>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.CommentedDate)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.CommentedDate)
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

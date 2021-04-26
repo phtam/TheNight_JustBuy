@@ -55,22 +55,24 @@
                                 @Html.DisplayFor(modelItem => item.Note)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Status)
+                                @if (item.Status == 1)
+                                {
+                                    <span class="badge badge-primary">Pending</span>
+                                }
+                                else
+                                {
+                                     <span class="badge badge-warning">Pending</span>
+                                }
+
                             </td>
 
 
 
                             <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "OrderDetails", new { id = item.OrderID })">
+                                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Orders", new { id = item.OrderID })">
                                     <i class="fas fa-eye">
                                     </i>
                                     View
-                                </a>
-
-                                <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Orders", new { id = item.OrderID })">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                    Delete
                                 </a>
                             </td>
                         </tr>

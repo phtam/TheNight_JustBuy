@@ -11,7 +11,8 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using TheNight_JustBuy.Areas.Admin.Models;
+
     public partial class Blog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +20,21 @@ namespace TheNight_JustBuy.Models
         {
             this.BlogComments = new HashSet<BlogComment>();
         }
-    
+
+        public Blog(BlogModelForCreate blog)
+        {
+            this.BlogID = blog.BlogID;
+            this.BlogName = blog.BlogName;
+            this.UserID = blog.UserID;
+            this.CategoryID = blog.CategoryID;
+            this.ShortDescription = blog.ShortDescription;
+            this.Content = blog.Content;
+            this.Thumbnail = blog.Thumbnail;
+            this.CreatedDate = blog.CreatedDate;
+            this.Status = blog.Status;
+            
+        }
+
         public int BlogID { get; set; }
         public string BlogName { get; set; }
         public Nullable<int> UserID { get; set; }

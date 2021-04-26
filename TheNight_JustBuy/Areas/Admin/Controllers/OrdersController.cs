@@ -28,12 +28,12 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            var od = db.OrderDetails.Where(m => m.OrderID == id).ToList();
+            if (od == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(od);
         }
 
         

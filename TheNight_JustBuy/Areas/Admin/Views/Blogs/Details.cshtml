@@ -1,0 +1,137 @@
+﻿@model TheNight_JustBuy.Models.Blog
+
+@{
+    ViewBag.Title = "Blog Detail";
+    ViewBag.Function = "Blogs";
+    ViewBag.ChildFunction = "Blog Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Blog</h1>
+            <div class="card-tools">
+                @if (Model.Status == -1)
+                {
+                    <a class="btn btn-block btn-secondary float-right" href="~/Admin/Blogs/Approve">Back to List</a>
+                }
+                else
+                {
+                    <a class="btn btn-block btn-secondary float-right" href="~/Admin/Blogs">Back to List</a>
+                }
+
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.BlogID)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.BlogID)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.BlogName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.BlogName)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ShortDescription)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ShortDescription)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.User.Username)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.User.Username)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Content)</strong>:
+                                </div>
+                                <div class="col-sm-10">
+                                    @Html.Raw(Model.Content)
+                                </div>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.CreatedDate)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.CreatedDate)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayName("Blog category name")</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @ViewBag.BlogCategory
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong>:
+                                </div>
+                                @if (!Model.Thumbnail.IsEmpty())
+                                {
+                                    <img class="col-sm-10" id="imageDetail" src="@Url.Content(Model.Thumbnail)" style="max-width:300px" />
+                                }
+                                else
+                                {
+                                    <p>No Image</p>
+                                }
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Status)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @if (Model.Status == 1)
+                                    {
+                                        <span class="badge badge-primary">Show</span>
+                                    }
+                                    else if (Model.Status == 0)
+                                    {
+                                        <span class="badge badge-warning">Hide</span>
+                                    }
+                                    else if (Model.Status == -1)
+                                    {
+                                        <span class="badge badge-info">Pending</span>
+                                    }
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

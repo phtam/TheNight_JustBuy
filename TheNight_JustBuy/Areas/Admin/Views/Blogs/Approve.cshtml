@@ -1,0 +1,146 @@
+﻿@model IEnumerable<TheNight_JustBuy.Models.Blog>
+@{
+    ViewBag.Title = "Blog Approval";
+    ViewBag.Function = "Blogs";
+    ViewBag.ChildFunction = "Blog Approval";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.ApproveView = true;
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Blog approval</h3>
+            </div>
+            <div class="card-body">
+                <table id="btnApproval" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BlogName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.User.Username)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BlogCategory.CategoryName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Thumbnail)
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="blog-@item.BlogID">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BlogName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Username)
+                                </td>
+                                <td>
+                                    @item.CreatedDate.Value.ToString("dd/MM/yy HH:mm")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BlogCategory.CategoryName)
+                                </td>
+                                <td>
+
+                                    @if (!item.Thumbnail.IsEmpty())
+                                    {
+                                        <img src="@Url.Content(item.Thumbnail)" width="200" />
+                                    }
+                                    else
+                                    {
+                                        <p>No Image</p>
+                                    }
+                                </td>
+                                <td>
+                                    <button class="btn btn-block btn-success btn-sm approve" data-id="@item.BlogID">
+                                        <i class="fa fa-check">
+                                        </i>
+                                        Approve
+                                    </button>
+                                    <button class="btn btn-block btn-danger btn-sm ignore" data-id="@item.BlogID">
+                                        <i class="fa fa-times">
+                                        </i>
+                                        Ignore
+                                    </button>
+                                    <a class="btn btn-block btn-primary btn-sm" href="~/Admin/Blogs/Details/@item.BlogID">
+                                        <i class="fas fa-eye">
+                                        </i>
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/datatable")
+    @Scripts.Render("~/asset/scripts/datatable")
+    <script src="~/Asset/ajaxChangeSatus/blogs.js"></script>
+    <script>
+        $("#btnApproval").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "width": "20%", "targets": 0 }
+            ]
+        });
+    </script>
+
+}
+
