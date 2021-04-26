@@ -11,7 +11,9 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Supplier
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,12 +21,28 @@ namespace TheNight_JustBuy.Models
         {
             this.Products = new HashSet<Product>();
         }
-    
+
+        [DisplayName("Supplier ID")]
         public int SupplierID { get; set; }
+        [DisplayName("Company Name")]
+        [Required(ErrorMessage = "Please enter a valid company name!")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "The company name must be between 3 and 50 characters long.")]
         public string CompanyName { get; set; }
+        [DisplayName("Contact Name")]
+        [Required(ErrorMessage = "Please enter a valid contact name!")]
+        [StringLength(maximumLength: 250, MinimumLength = 3, ErrorMessage = "The contact name must be between 3 and 250 characters long.")]
         public string ContactName { get; set; }
         public string Address { get; set; }
+
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid phone number!")]
+        [StringLength(maximumLength: 15, MinimumLength = 3, ErrorMessage = "Phone number must be between 3 and 15 characters long.")]
+        [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "The phone number is incorrect format. Try again, please!")]
         public string Phone { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid email!")]
+        [StringLength(maximumLength: 60, MinimumLength = 6, ErrorMessage = "The email must be between 6 and 60 characters long.")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "The email is incorrect format. Try again, please!")]
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
