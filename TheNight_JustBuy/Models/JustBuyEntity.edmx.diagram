@@ -5,35 +5,34 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c0b7e7fdee854fb49f30fa5f0c2399f9" Name="Diagram1" ZoomLevel="69">
-        <EntityTypeShape EntityType="JustBuyModel.Address" Width="1.5" PointX="3.375" PointY="19.375" />
-        <EntityTypeShape EntityType="JustBuyModel.BlogCategory" Width="1.5" PointX="6" PointY="7.375" />
-        <EntityTypeShape EntityType="JustBuyModel.BlogComment" Width="1.5" PointX="6.375" PointY="14" />
-        <EntityTypeShape EntityType="JustBuyModel.Blog" Width="1.5" PointX="8.375" PointY="9.625" />
-        <EntityTypeShape EntityType="JustBuyModel.Category" Width="1.5" PointX="1.125" PointY="0.875" />
-        <EntityTypeShape EntityType="JustBuyModel.Configuration" Width="1.5" PointX="6.125" PointY="0.75" />
-        <EntityTypeShape EntityType="JustBuyModel.Discount" Width="1.5" PointX="1.125" PointY="7.375" />
-        <EntityTypeShape EntityType="JustBuyModel.Feedback" Width="1.5" PointX="8.125" PointY="0.75" />
-        <EntityTypeShape EntityType="JustBuyModel.OrderDetail" Width="1.5" PointX="5.625" PointY="4.125" />
-        <EntityTypeShape EntityType="JustBuyModel.Order" Width="1.5" PointX="3.375" PointY="12" />
-        <EntityTypeShape EntityType="JustBuyModel.ProductComment" Width="1.5" PointX="8.625" PointY="4" />
-        <EntityTypeShape EntityType="JustBuyModel.ProductImage" Width="1.5" PointX="6.25" PointY="10.375" />
-        <EntityTypeShape EntityType="JustBuyModel.Product" Width="1.5" PointX="3.375" PointY="2.75" />
-        <EntityTypeShape EntityType="JustBuyModel.Supplier" Width="1.5" PointX="1.125" PointY="4" />
-        <EntityTypeShape EntityType="JustBuyModel.User" Width="1.5" PointX="1.125" PointY="10.875" />
+        <EntityTypeShape EntityType="JustBuyModel.Address" Width="1.5" PointX="3" PointY="22" />
+        <EntityTypeShape EntityType="JustBuyModel.BlogCategory" Width="1.5" PointX="0.75" PointY="6.25" />
+        <EntityTypeShape EntityType="JustBuyModel.BlogComment" Width="1.5" PointX="8.25" PointY="9.75" />
+        <EntityTypeShape EntityType="JustBuyModel.Blog" Width="1.5" PointX="3" PointY="9.375" />
+        <EntityTypeShape EntityType="JustBuyModel.Category" Width="1.5" PointX="1.5" PointY="14.25" />
+        <EntityTypeShape EntityType="JustBuyModel.Configuration" Width="1.5" PointX="2.75" PointY="6" />
+        <EntityTypeShape EntityType="JustBuyModel.Discount" Width="1.5" PointX="4.75" PointY="6" />
+        <EntityTypeShape EntityType="JustBuyModel.Feedback" Width="1.5" PointX="6.75" PointY="5" />
+        <EntityTypeShape EntityType="JustBuyModel.OrderDetail" Width="1.5" PointX="5.25" PointY="19" />
+        <EntityTypeShape EntityType="JustBuyModel.Order" Width="1.5" PointX="3" PointY="19" />
+        <EntityTypeShape EntityType="JustBuyModel.ProductComment" Width="1.5" PointX="6" PointY="9.75" />
+        <EntityTypeShape EntityType="JustBuyModel.ProductImage" Width="1.5" PointX="6" PointY="2.125" />
+        <EntityTypeShape EntityType="JustBuyModel.Product" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="JustBuyModel.Supplier" Width="1.5" PointX="1.5" PointY="2.125" />
+        <EntityTypeShape EntityType="JustBuyModel.User" Width="1.5" PointX="0.75" PointY="8.625" />
         <AssociationConnector Association="JustBuyModel.FK__Address__UserID__4222D4EF" />
         <AssociationConnector Association="JustBuyModel.FK__Blogs__CategoryI__403A8C7D" />
         <AssociationConnector Association="JustBuyModel.FK__BlogComme__BlogI__3E52440B" />
         <AssociationConnector Association="JustBuyModel.FK__BlogComme__UserI__3F466844" />
         <AssociationConnector Association="JustBuyModel.FK__Blogs__UserID__412EB0B6" />
         <AssociationConnector Association="JustBuyModel.FK__Products__Catego__48CFD27E" />
-        <AssociationConnector Association="JustBuyModel.FK__Products__Discou__49C3F6B7" />
         <AssociationConnector Association="JustBuyModel.FK__OrderDeta__Order__4316F928" />
         <AssociationConnector Association="JustBuyModel.FK__OrderDeta__Produ__440B1D61" />
         <AssociationConnector Association="JustBuyModel.FK__Orders__UserID__44FF419A" />
         <AssociationConnector Association="JustBuyModel.FK__ProductCo__Produ__45F365D3" />
         <AssociationConnector Association="JustBuyModel.FK__ProductCo__UserI__46E78A0C" />
         <AssociationConnector Association="JustBuyModel.FK__ProductIm__Produ__47DBAE45" />
-        <AssociationConnector Association="JustBuyModel.FK__Products__Suppli__4AB81AF0" />
+        <AssociationConnector Association="JustBuyModel.FK__Products__Suppli__49C3F6B7" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
