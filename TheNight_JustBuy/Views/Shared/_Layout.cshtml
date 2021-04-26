@@ -1,42 +1,40 @@
 ﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+<html class="no-js" lang="en">
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JustBuy - Home page</title>
+    <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/clients/images/favicon.png" />
+    <link rel="stylesheet" href="~/Content/clients/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/clients/css/animate.min.css">
+    <link rel="stylesheet" href="~/Content/clients/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/clients/css/nice-select.css">
+    <link rel="stylesheet" href="~/Content/clients/css/slick.min.css">
+    <link rel="stylesheet" href="~/Content/clients/css/style.css">
+    <link rel="stylesheet" href="~/Content/clients/css/main-color01.css">
+</head>
+<body class="biolife-body">
+
+    @Html.Partial("HeaderClient")   
+    
+    @RenderBody()
+
+    @Html.Partial("FooterClient")
+
+    <script src="~/Content/clients/js/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/clients/js/bootstrap.min.js"></script>
+    <script src="~/Content/clients/js/jquery.countdown.min.js"></script>
+    <script src="~/Content/clients/js/jquery.nice-select.min.js"></script>
+    <script src="~/Content/clients/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/clients/js/slick.min.js"></script>
+    <script src="~/Content/clients/js/biolife.framework.js"></script>
+    <script src="~/Content/clients/js/functions.js"></script>
 </body>
+
 </html>
