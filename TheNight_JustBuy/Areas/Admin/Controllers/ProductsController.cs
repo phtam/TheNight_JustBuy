@@ -108,7 +108,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
 
 
             // GET: Admin/Products/Create
-            public ActionResult Create()
+        public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.DiscountID = new SelectList(db.Discounts, "DiscountID", "DiscountName");

@@ -11,7 +11,6 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Discount
@@ -28,10 +27,10 @@ namespace TheNight_JustBuy.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid discount name!")]
         [StringLength(maximumLength: 80, MinimumLength = 3, ErrorMessage = "The discount name must be between 3 and 80 characters long.")]
         public string DiscountName { get; set; }
-        [DisplayName("Start Date")]
+
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public Nullable<System.DateTime> StartDate { get; set; }
-        [DisplayName("End Date")]
+
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> Rate { get; set; }

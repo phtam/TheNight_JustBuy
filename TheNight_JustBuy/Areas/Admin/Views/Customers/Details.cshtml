@@ -1,0 +1,159 @@
+﻿@model TheNight_JustBuy.Models.User
+
+@{
+    ViewBag.Title = "Customer Detail";
+    ViewBag.Function = "Customers";
+    ViewBag.ChildFunction = "Customer Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Customers</h1>
+
+            <div class="card-tools">
+                <a class="btn btn-block btn-secondary float-right" href="~/Admin/Customers">Back to List</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.UserID)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.UserID)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Username)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Username)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.FirstName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.FirstName)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.LastName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.LastName)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.CreditCard)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.CreditCard)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Gender)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @if (Model.Gender == true)
+                                    {
+                                        <div>Male</div>
+                                    }
+                                    else
+                                    {
+                                        <div>Female</div>
+                                    }
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Birthday)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Model.Birthday.Value.ToShortDateString()
+                                </p>
+                            </div>
+
+
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Phone)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Phone)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Email)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Email)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Avatar)</strong>:
+                                </div>
+                                @if (!Model.Avatar.IsEmpty())
+                                {
+                                    <img class="col-sm-10" id="imageDetail" src="@Url.Content(Model.Avatar)" />
+                                }
+                                else
+                                {
+                                    <p class="col-sm-10">No Image</p>
+                                }
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Status)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Status)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Role)</strong>:
+                                </div>
+                                @if (Model.Role == true)
+                                {
+                                    <span class="badge badge-primary">Administrator</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success">Customer</span>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

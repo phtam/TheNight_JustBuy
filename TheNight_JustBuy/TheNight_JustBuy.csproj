@@ -138,6 +138,7 @@
     <Compile Include="Areas\Admin\Controllers\BestSellerConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogCategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeedbacksController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
@@ -147,10 +148,16 @@
     <Compile Include="Areas\Admin\Controllers\PromotionConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlidebarConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SuppliersController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdministratorsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
+    <Compile Include="Areas\Admin\Models\UserModelForCreate.cs" />
+    <Compile Include="Areas\Admin\Models\UserModelForEdit.cs" />
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="CustomValidation\DOBValidation.cs" />
+    <Compile Include="CustomValidation\ExistedUsername.cs" />
+    <Compile Include="CustomValidation\ImageValidationForCreate.cs" />
+    <Compile Include="CustomValidation\ImageValidationForUpdate.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2389,11 +2396,11 @@
     <Content Include="Areas\Admin\Views\Products\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\SweetAlert.cshtml" />
     <Content Include="Areas\Admin\Views\SlidebarConfigurations\Details.cshtml" />
     <Content Include="Areas\Admin\Views\SlidebarConfigurations\Edit.cshtml" />
@@ -2407,8 +2414,13 @@
     <Content Include="Areas\Admin\Views\PromotionConfigurations\Details.cshtml" />
     <Content Include="Areas\Admin\Views\PromotionConfigurations\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\PromotionConfigurations\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Address.cshtml" />
+    <Content Include="Areas\Admin\Views\Administrators\Address.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Images.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Index.cshtml" />
     <Content Include="Areas\Admin\Views\BlogCategories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\BlogCategories\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\BlogCategories\Edit.cshtml" />

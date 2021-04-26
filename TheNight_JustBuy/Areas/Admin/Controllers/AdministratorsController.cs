@@ -8,11 +8,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using TheNight_JustBuy.Areas.Admin.Models;
 using TheNight_JustBuy.Models;
 
 namespace TheNight_JustBuy.Areas.Admin.Controllers
 {
-    public class UsersController : Controller
+    public class AdministratorsController : Controller
     {
         private JustBuyEntities db = new JustBuyEntities();
 
@@ -20,8 +21,10 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var user = db.Users.Where(u => u.Role == true);
-            return View(db.Users.ToList());
+            return View(user.ToList());
         }
+
+
 
         // GET: Admin/Users/Details/5
         public ActionResult Details(int? id)
@@ -38,6 +41,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(user);
         }
 
+        
         public ActionResult Address(int? id)
         {
             if (id != null && db.Users.Find(id) != null)
@@ -62,10 +66,10 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 db.Addresses.Add(address);
                 if (db.SaveChanges() > 0)
                     TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
-                return RedirectToAction("Address", "Users", new { @id = address.UserID });
+                return RedirectToAction("Address", "Administrators", new { @id = address.UserID });
             }
 
-            return RedirectToAction("Address", "Users", new { @id = address.UserID });
+            return RedirectToAction("Address", "Administrators", new { @id = address.UserID });
         }
 
         
@@ -79,7 +83,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,Username,FirtName,LastName,Password,CreditCard,Gender,Birthday,Phone,Email,Avatar,ImageFile")] User user)
+        public ActionResult Create([Bind(Include = "UserID,Username,FirstName,LastName,Password,CreditCard,Gender,Birthday,Phone,Email,Avatar,ImageFile")] UserModelForCreate user)
         {
             if (ModelState.IsValid)
             {
@@ -103,8 +107,9 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 user.Password = encoder.Encode(user.Password);
                 user.Role = true;
                 user.Status = true;
+                var userEntity = new User(user);
 
-                db.Users.Add(user);
+                db.Users.Add(userEntity);
                 if (db.SaveChanges() > 0)
                     TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
                 return RedirectToAction("Index");
@@ -126,7 +131,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             Session["OldImage_User"] = user.Avatar;
-            return View(user);
+            return View(new UserModelForEdit(user));
         }
 
         // POST: Admin/Users/Edit/5
@@ -134,17 +139,17 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,Username,FirtName,LastName,CreditCard,Gender,Birthday,Phone,Email,Avatar,Status,ImageFile")] User user, String imageOldFile_User)
+        public ActionResult Edit([Bind(Include = "UserID,Username,FirstName,LastName,CreditCard,Gender,Birthday,Phone,Email,Avatar,Status,EditedImage")] UserModelForEdit user, String imageOldFile_User)
         {
             if (ModelState.IsValid)
             {
-                if (user.ImageFile == null)
+                if (user.EditedImage == null)
                 {
                     user.Avatar = imageOldFile_User;
                 }
                 else
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(user.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(user.ImageFile.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(user.EditedImage.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(user.EditedImage.FileName);
 
                     user.Avatar = "~/public/uploadedFiles/userPictures/" + fileName;
 
@@ -164,12 +169,23 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                     catch (Exception)
                     {
                     }
-                    user.ImageFile.SaveAs(fileName);
+                    user.EditedImage.SaveAs(fileName);
                 }
-                user.Role = true;
-                db.Entry(user).State = EntityState.Modified;          
+
+                var userEntity = db.Users.Find(user.UserID);
+                userEntity.FirstName = user.FirstName;
+                userEntity.LastName = user.LastName;
+                userEntity.CreditCard = user.CreditCard;
+                userEntity.Gender = user.Gender;
+                userEntity.Birthday = user.Birthday;
+                userEntity.Phone = user.Phone;
+                userEntity.Email = user.Email;
+                userEntity.Avatar = user.Avatar;
+                userEntity.Status = user.Status;
+        
                 if (db.SaveChanges() > 0)
                 {
+                    Session.Remove("OldImage_User");
                     TempData.Add(Common.CommonConstants.SAVE_SUCCESSFULLY, true);
                 }
                 return RedirectToAction("Index");
@@ -191,6 +207,8 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             }
             return View(user);
         }
+
+       
 
         // POST: Admin/Users/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -217,6 +235,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)
