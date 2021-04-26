@@ -11,6 +11,7 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     public partial class Product
@@ -31,6 +32,7 @@ namespace TheNight_JustBuy.Models
         public string Description { get; set; }
         public string Thumbnail { get; set; }
         public Nullable<int> UnitsInStock { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public Nullable<System.DateTime> LaunchDate { get; set; }
         public Nullable<int> VotedAverageMark { get; set; }
         public Nullable<int> SupplierID { get; set; }

@@ -11,7 +11,9 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web;
+    using TheNight_JustBuy.Areas.Admin.Models;
 
     public partial class User
     {
@@ -24,7 +26,25 @@ namespace TheNight_JustBuy.Models
             this.Orders = new HashSet<Order>();
             this.ProductComments = new HashSet<ProductComment>();
         }
-    
+
+        public User(UserModelForCreate user)
+        {
+            this.UserID = user.UserID;
+            this.Username = user.Username;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.Password = user.Password;
+            this.CreditCard = user.CreditCard;
+            this.Gender = user.Gender;
+            this.Birthday = user.Birthday;
+            this.Phone = user.Phone;
+            this.Email = user.Email;
+            this.Avatar = user.Avatar;
+            this.Role = user.Role;
+            this.Status = user.Status;
+            this.Cart = user.Cart;
+        }
+
         public int UserID { get; set; }
         public string Username { get; set; }
         public string FirstName { get; set; }
@@ -32,6 +52,7 @@ namespace TheNight_JustBuy.Models
         public string Password { get; set; }
         public string CreditCard { get; set; }
         public Nullable<bool> Gender { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
@@ -39,7 +60,7 @@ namespace TheNight_JustBuy.Models
         public Nullable<bool> Role { get; set; }
         public Nullable<bool> Status { get; set; }
         public string Cart { get; set; }
-        public HttpPostedFileBase ImageFile { get; set; }
+        //public HttpPostedFileBase ImageFile { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }
