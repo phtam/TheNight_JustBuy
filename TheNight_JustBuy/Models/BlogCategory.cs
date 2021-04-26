@@ -11,22 +11,19 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
-
-    public partial class Category
+    
+    public partial class BlogCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public BlogCategory()
         {
-            this.Products = new HashSet<Product>();
+            this.Blogs = new HashSet<Blog>();
         }
     
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
-        public string CategoryImage { get; set; }
-        public HttpPostedFileBase ImageFile { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Blog> Blogs { get; set; }
     }
 }

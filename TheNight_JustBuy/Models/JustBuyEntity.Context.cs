@@ -26,6 +26,9 @@ namespace TheNight_JustBuy.Models
         }
     
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<BlogCategory> BlogCategories { get; set; }
+        public virtual DbSet<BlogComment> BlogComments { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Configuration> Configurations { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }

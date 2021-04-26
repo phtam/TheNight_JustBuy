@@ -155,6 +155,15 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>JustBuyEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Blog.cs">
+      <DependentUpon>JustBuyEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogCategory.cs">
+      <DependentUpon>JustBuyEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogComment.cs">
+      <DependentUpon>JustBuyEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
       <DependentUpon>JustBuyEntity.tt</DependentUpon>
     </Compile>
