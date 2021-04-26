@@ -50,8 +50,17 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (discount.StartDate > discount.EndDate)
+                {
+                    ViewBag.NotiDate = "The start date must be before the end date.";
+                    return View(discount);
+                }
+
                 db.Discounts.Add(discount);
-                db.SaveChanges();
+                if (db.SaveChanges() > 0)
+                {
+                    TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -82,8 +91,16 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (discount.StartDate > discount.EndDate)
+                {
+                    ViewBag.NotiDate = "The start date must be before the end date.";
+                    return View(discount);
+                }
                 db.Entry(discount).State = EntityState.Modified;
-                db.SaveChanges();
+                if (db.SaveChanges() > 0)
+                {
+                    TempData.Add(Common.CommonConstants.SAVE_SUCCESSFULLY, true);
+                }
                 return RedirectToAction("Index");
             }
             return View(discount);
@@ -109,9 +126,20 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Discount discount = db.Discounts.Find(id);
-            db.Discounts.Remove(discount);
-            db.SaveChanges();
+            try
+            {
+                Discount discount = db.Discounts.Find(id);
+                db.Discounts.Remove(discount);
+                if (db.SaveChanges() > 0)
+                {
+                    TempData.Add(Common.CommonConstants.DELETE_SUCCESSFULLY, true);
+                }
+            }
+            catch (Exception)
+            {
+                TempData.Add(Common.CommonConstants.DELETE_FAILED, true);
+            }
+            
             return RedirectToAction("Index");
         }
 

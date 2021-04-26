@@ -1,0 +1,183 @@
+﻿@model TheNight_JustBuy.Models.Address
+
+@{
+    ViewBag.Title = "Address of " + ViewBag.Username;
+    ViewBag.Function = "Users";
+    ViewBag.ChildFunction = "Address Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    var list = (List<TheNight_JustBuy.Models.Address>)ViewBag.List;
+
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-5">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">New Address</h3>
+                    </div>
+                    @using (Html.BeginForm("Address", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <div class="card-body">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <input type="hidden" id="UserID" name="UserID" value="@ViewBag.UserId" />
+
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.AddressDetail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.AddressDetail, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter adddress", @id = "txtaddress" } })
+                                        @Html.ValidationMessageFor(model => model.AddressDetail, "", new { @class = "text-danger" })
+                                        <div style="color:red" id="notice_invalid_username"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter city", @id = "city" } })
+                                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                                        <div style="color:red" id="notice_invalid_username"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter district", @id = "district" } })
+                                        @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
+                                        <div style="color:red" id="notice_invalid_username"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter zip code", @id = "code" } })
+                                        @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                                        <div style="color:red" id="notice_invalid_username"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success">Add Address</button>
+                                <button type="reset" class="btn btn-default float-right" onclick="window.location = '../'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-lightblue">
+                        <div class="card-header">
+                            <h3 class="card-title">Data of Address Detail</h3>
+                        </div>
+                        <div class="card-body">
+                            <table id="tbl_Address" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <th>
+                                            City
+                                        <th>
+                                            District
+                                        </th>
+                                        <th>
+                                            Zip code
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in list)
+                                    {
+                                        <tr>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AddressDetail)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.City)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.District)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ZipCode)
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/datatable")
+    @Scripts.Render("~/asset/scripts/datatable")
+
+    <script>
+        $("#tbl_Address").DataTable({
+            "destroy": true,
+            "responsive": true,
+            "autoWidth": false,
+            "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                { Width: '80px' }
+            ],
+
+        });
+
+
+    </script>
+}

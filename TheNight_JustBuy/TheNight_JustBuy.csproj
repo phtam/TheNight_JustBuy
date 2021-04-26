@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CryptSharp.SCryptSubset, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SCrypt.2.0.0.2\lib\CryptSharp.SCryptSubset.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -52,6 +55,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Scrypt, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scrypt.NET.1.3.0\lib\net20\Scrypt.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -129,14 +135,19 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BestSellerConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeedbacksController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewProductConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PromotionConfigurationsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SlidebarConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SuppliersController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Common\CommonConstant.cs" />
+    <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
+    <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,6 +206,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\dist\img\ico\icon_banner.png" />
+    <Content Include="Asset\dist\img\ico\icon_bestseller.png" />
+    <Content Include="Asset\dist\img\ico\icon_categories.png" />
+    <Content Include="Asset\dist\img\ico\icon_comment.png" />
+    <Content Include="Asset\dist\img\ico\icon_contact.png" />
+    <Content Include="Asset\dist\img\ico\icon_customer.png" />
+    <Content Include="Asset\dist\img\ico\icon_discount.png" />
+    <Content Include="Asset\dist\img\ico\icon_feedback.png" />
+    <Content Include="Asset\dist\img\ico\icon_new.png" />
+    <Content Include="Asset\dist\img\ico\icon_oder_details.png" />
+    <Content Include="Asset\dist\img\ico\icon_order.png" />
+    <Content Include="Asset\dist\img\ico\icon_product.png" />
+    <Content Include="Asset\dist\img\ico\icon_promotion.png" />
+    <Content Include="Asset\dist\img\ico\icon_slide.png" />
+    <Content Include="Asset\dist\img\ico\icon_slidebar.png" />
+    <Content Include="Asset\dist\img\ico\icon_supplier.png" />
+    <Content Include="Asset\dist\img\ico\icon_user.png" />
+    <Content Include="Asset\ajaxChangeSatus\user.js" />
     <Content Include="Content\DataTables\Buttons-1.6.5\css\buttons.bootstrap.css" />
     <Content Include="Content\DataTables\Buttons-1.6.5\css\buttons.bootstrap.min.css" />
     <Content Include="Content\DataTables\Buttons-1.6.5\css\buttons.bootstrap4.css" />
@@ -2351,6 +2380,21 @@
     <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\SweetAlert.cshtml" />
+    <Content Include="Areas\Admin\Views\SlidebarConfigurations\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SlidebarConfigurations\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SlidebarConfigurations\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BestSellerConfigurations\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\BestSellerConfigurations\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BestSellerConfigurations\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NewProductConfigurations\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NewProductConfigurations\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NewProductConfigurations\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PromotionConfigurations\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PromotionConfigurations\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PromotionConfigurations\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Address.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Images.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2380,6 +2424,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Values\" />
     <Folder Include="Providers\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>

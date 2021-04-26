@@ -1,52 +1,144 @@
 ﻿@model IEnumerable<TheNight_JustBuy.Models.Discount>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Discounts";
+    ViewBag.Manage = "Manage Discount";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Data of Discounts</h3>
+                <p>
+                    <a class="btn btn-success btn-sm float-right" href="~/Admin/Discounts/Create">
+                        <i class="fas fa-plus">
+                        </i>
+                        Create New
+                    </a>
+                </p>
+            </div>
+            <div class="card-body">
+                <table id="tbl_Discounts" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DiscountID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DiscountName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rate)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DiscountID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DiscountName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rate)
+                            </td>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DiscountName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rate)
-        </th>
-        <th></th>
-    </tr>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Discounts", new { id = item.DiscountID })">
+                                    <i class="fas fa-eye">
+                                    </i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="@Url.Action("Edit", "Discounts", new { id = item.DiscountID })">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Discounts", new { id = item.DiscountID })">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiscountName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DiscountID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DiscountID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DiscountID })
-        </td>
-    </tr>
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/datatable")
+    @Scripts.Render("~/asset/scripts/datatable")
+    <script src="~/Asset/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="~/Asset/ajaxChangeSatus/coupons.js"></script>
+    <script>
+        $("#tbl_Discounts").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "width": "20%", "targets": 0 }
+            ]
+        });
+    </script>
 }
-
-</table>

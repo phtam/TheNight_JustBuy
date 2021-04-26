@@ -11,7 +11,8 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +20,18 @@ namespace TheNight_JustBuy.Models
         {
             this.OrderDetails = new HashSet<OrderDetail>();
         }
-    
+
+        [DisplayName("Order ID")]
         public int OrderID { get; set; }
+        
         public Nullable<int> UserID { get; set; }
+        [DisplayName("Created Date")]
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string Note { get; set; }
         public Nullable<int> Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [DisplayName("Order Detail")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual User User { get; set; }
     }

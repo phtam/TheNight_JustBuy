@@ -11,7 +11,10 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +22,27 @@ namespace TheNight_JustBuy.Models
         {
             this.Products = new HashSet<Product>();
         }
-    
+
+        [DisplayName("Category ID")]
         public int CategoryID { get; set; }
+
+
+        [DisplayName("Category Name")]
+        [Required(ErrorMessage = "Please enter a valid category name!")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "The category name must be between 3 and 50 characters long.")]
         public string CategoryName { get; set; }
+
+
+
+        [DisplayName("Image")]
         public string CategoryImage { get; set; }
+
+
+
+
+        public HttpPostedFileBase ImageFile { get; set; } 
+
+
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
