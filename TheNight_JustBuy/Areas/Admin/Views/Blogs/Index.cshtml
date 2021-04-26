@@ -1,0 +1,177 @@
+﻿@model IEnumerable<TheNight_JustBuy.Models.Blog>
+
+@{
+    ViewBag.Title = "Manage Blogs";
+    ViewBag.Manage = "Manage Blogs";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    string isChecked = "";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Data of Blogs</h3>
+                <p style="display:inline;">
+                    <a class="btn btn-success btn-sm float-right" href="~/Admin/Blogs/Create">
+                        <i class="fas fa-plus">
+                        </i>
+                        Create New
+                    </a>
+                    <a style="padding-left:2%" class="float-right">​</a>
+                    <a class="btn btn-info btn-sm float-right" href="~/Admin/Blogs/Approve">
+                        <i class="fas fa-check">
+                        </i>
+                        Blog Approval
+                    </a>
+
+                </p>
+            </div>
+            <div class="card-body">
+                <table id="BtnBlog" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BlogName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.User.Username)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BlogCategory.CategoryName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Thumbnail)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BlogName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Username)
+                                </td>
+                                <td>
+                                    @item.CreatedDate.Value.ToString("dd/MM/yy HH:mm")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BlogCategory.CategoryName)
+                                </td>
+                                <td>
+
+                                    @if (!item.Thumbnail.IsEmpty())
+                                    {
+                                        <img src="@Url.Content(item.Thumbnail)" width="180" />
+                                    }
+                                    else
+                                    {
+                                        <p>No Image</p>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.Status == 1)
+                                    {
+                                        isChecked = "checked";
+                                    }
+                                    else
+                                    {
+                                        isChecked = "";
+                                    }
+                                    <input type="checkbox" data-id="@item.BlogID" data-on-text="show" data-off-text="hide" id="chkStatus" name="my-checkbox" @isChecked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                </td>
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="~/Admin/Blogs/Details/@item.BlogID">
+                                        <i class="fas fa-eye">
+                                        </i>
+                                        View
+                                    </a>
+                                    <a class="btn btn-info btn-sm" href="~/Admin/Blogs/Edit/@item.BlogID">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="~/Admin/Blogs/Delete/@item.BlogID">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/datatable")
+    @Scripts.Render("~/asset/scripts/datatable")
+    <script src="~/Asset/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="~/Asset/ajaxChangeSatus/blogs.js"></script>
+
+    <script>
+        $("#BtnBlog").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    },
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "width": "20%", "targets": 0 }
+            ]
+        });
+    </script>
+
+
+}

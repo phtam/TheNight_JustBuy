@@ -19,7 +19,8 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // GET: Admin/BlogCategories
         public ActionResult Index()
         {
-            return View(db.BlogCategories.ToList());
+            var list = db.Blogs.Include(b => b.BlogCategory).Include(b => b.User).Where(b => b.Status == 1).ToList();
+            return View(list);
         }
 
         // GET: Admin/BlogCategories/Details/5

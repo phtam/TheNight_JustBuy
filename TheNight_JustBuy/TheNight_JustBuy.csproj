@@ -137,6 +137,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BestSellerConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogCommentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountsController.cs" />
@@ -144,12 +146,15 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewProductConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductCommentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PromotionConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlidebarConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SuppliersController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdministratorsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ValuesController.cs" />
+    <Compile Include="Areas\Admin\Models\BlogModelForCreate.cs" />
+    <Compile Include="Areas\Admin\Models\BlogModelForEdit.cs" />
     <Compile Include="Areas\Admin\Models\UserModelForCreate.cs" />
     <Compile Include="Areas\Admin\Models\UserModelForEdit.cs" />
     <Compile Include="Common\CommonConstants.cs" />
@@ -224,6 +229,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\ajaxChangeSatus\blogComment.js" />
+    <Content Include="Asset\ajaxChangeSatus\blogs.js" />
     <Content Include="Asset\dist\img\ico\icon_banner.png" />
     <Content Include="Asset\dist\img\ico\icon_bestseller.png" />
     <Content Include="Asset\dist\img\ico\icon_blog.png" />
@@ -2428,6 +2435,22 @@
     <Content Include="Areas\Admin\Views\Orders\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Blogs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Blogs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Blogs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Blogs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Blogs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Blogs\Approve.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogComments\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogComments\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogComments\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogComments\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogComments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductComments\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductComments\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductComments\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductComments\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductComments\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
