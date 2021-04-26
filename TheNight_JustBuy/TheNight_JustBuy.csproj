@@ -136,12 +136,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BestSellerConfigurationsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogCategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeedbacksController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewProductConfigurationsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PromotionConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlidebarConfigurationsController.cs" />
@@ -224,6 +226,10 @@
   <ItemGroup>
     <Content Include="Asset\dist\img\ico\icon_banner.png" />
     <Content Include="Asset\dist\img\ico\icon_bestseller.png" />
+    <Content Include="Asset\dist\img\ico\icon_blog.png" />
+    <Content Include="Asset\dist\img\ico\icon_blog_blog.png" />
+    <Content Include="Asset\dist\img\ico\icon_blog_category.png" />
+    <Content Include="Asset\dist\img\ico\icon_blog_comment.png" />
     <Content Include="Asset\dist\img\ico\icon_categories.png" />
     <Content Include="Asset\dist\img\ico\icon_comment.png" />
     <Content Include="Asset\dist\img\ico\icon_contact.png" />
@@ -2415,6 +2421,13 @@
     <Content Include="Areas\Admin\Views\Customers\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

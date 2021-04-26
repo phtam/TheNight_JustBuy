@@ -20,11 +20,17 @@ namespace TheNight_JustBuy.Models
         {
             this.Products = new HashSet<Product>();
         }
-    
+
+        [DisplayName("Discount ID")]
         public int DiscountID { get; set; }
+        [DisplayName("Discount Name")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid discount name!")]
+        [StringLength(maximumLength: 80, MinimumLength = 3, ErrorMessage = "The discount name must be between 3 and 80 characters long.")]
         public string DiscountName { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public Nullable<System.DateTime> StartDate { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> Rate { get; set; }
