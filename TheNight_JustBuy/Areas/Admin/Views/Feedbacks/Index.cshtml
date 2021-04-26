@@ -1,52 +1,134 @@
 ﻿@model IEnumerable<TheNight_JustBuy.Models.Feedback>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Feedback";
+    ViewBag.Manage = "Manage Feedback";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subject)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FeedbackID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FeedbackID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FeedbackID })
-        </td>
-    </tr>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Data of feedbacks</h3>
+                <p>
+                    <a class="btn btn-success btn-sm float-right" href="~/Admin/Feedbacks/Create">
+                        <i class="fas fa-plus">
+                        </i>
+                        Create New
+                    </a>
+                </p>
+            </div>
+            <div class="card-body">
+                <table id="tbl_Feedbacks" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FeedbackID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Subject)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                           <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FeedbackID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Subject)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-primary btn-sm" href="~/Admin/Feedbacks/Details/@item.FeedbackID">
+                                    <i class="fas fa-eye">
+                                    </i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="~/Admin/Feedbacks/Edit/@item.FeedbackID">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="~/Admin/Feedbacks/Delete/@item.FeedbackID    ">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/datatable")
+    @Scripts.Render("~/asset/scripts/datatable")
+<script>
+    //Coupon
+    $("#tbl_Feedbacks").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
+        "buttons": [
+            {
+                extend: 'excel',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    }
+                },
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    }
+                },
+                className: 'btn btn-danger btn-sm'
+            },
+            {
+                extend: 'print',
+                text: '<i class="fas fa-print"></i> Print',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    }
+                },
+                className: 'btn btn-info btn-sm'  
+            }
+        ],
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "aoColumns": [
+            null,
+            null,
+            null,
+            null,
+            { "width": "25%", "targets": 0 }
+        ]
+    });
+    </script>
 }
-
-</table>
