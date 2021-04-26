@@ -1,19 +1,35 @@
 ﻿@model TheNight_JustBuy.Models.User
 
 @{
-    ViewBag.Title = "Users Detail";
-    ViewBag.Function = "Users";
-    ViewBag.ChildFunction = "Users Detail";
+    ViewBag.Title = "Delete Administrators";
+    ViewBag.Function = "Administrators";
+    ViewBag.ChildFunction = "Delete Administrators";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Users</h1>
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 style="font-weight:bold; font-size:25px" class="card-title">Are you sure you want to delete this?</h1>
+                </div>
 
-            <div class="card-tools">
-                <a class="btn btn-block btn-secondary float-right" href="~/Admin/Users">Back to List</a>
+                <div class="col-sm-2">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <div class="card-tools">
+                                <input type="submit" value="Delete" class="btn btn-block btn-secondary float-right btn-danger" />
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="card-tools col-sm-2">
+                    <a class="btn btn-block btn-secondary float-right" href="~/Admin/Administrators">Cancel</a>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -21,7 +37,6 @@
                 <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
                     <div class="row">
                         <div class="col-12">
-
                             <div class="post">
                                 <div class="col-sm-2 user-block">
                                     <strong>@Html.DisplayNameFor(model => model.UserID)</strong>:
@@ -147,7 +162,6 @@
                                     <span class="badge badge-success">Customer</span>
                                 }
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -156,4 +170,3 @@
         </div>
     </div>
 </section>
-

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Address of " + ViewBag.Username;
-    ViewBag.Function = "Users";
+    ViewBag.Function = "Administrators";
     ViewBag.ChildFunction = "Address Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
@@ -19,7 +19,7 @@
                     <div class="card-header">
                         <h3 class="card-title">New Address</h3>
                     </div>
-                    @using (Html.BeginForm("Address", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Address", "Administrators", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-horizontal">
