@@ -12,7 +12,8 @@ using TheNight_JustBuy.Models;
 
 namespace TheNight_JustBuy.Areas.Admin.Controllers
 {
-    public class BlogsController : Controller
+    [Authorize(Roles = "true")]
+    public class BlogsController : BaseController
     {
         private JustBuyEntities db = new JustBuyEntities();
 
@@ -73,7 +74,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 fileName = Path.Combine(uploadFolderPath, fileName);
 
                 blog.ImageFile.SaveAs(fileName);
-                var user = 1;
+                var user = 9;
                 blog.UserID = user;
 
                 var blogEntity = new Blog(blog);

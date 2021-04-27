@@ -16,6 +16,14 @@ namespace TheNight_JustBuy
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Application[Common.CommonConstants.TOTAL_VISITORS] = 0;
+        }
+
+        protected void Session_Start()
+        {
+            Application.Lock();
+            Application[Common.CommonConstants.TOTAL_VISITORS] = (int)Application[Common.CommonConstants.TOTAL_VISITORS] + 1;
+            Application.UnLock();
         }
     }
 }

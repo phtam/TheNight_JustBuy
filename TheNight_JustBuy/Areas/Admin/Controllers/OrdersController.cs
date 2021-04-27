@@ -10,7 +10,8 @@ using TheNight_JustBuy.Models;
 
 namespace TheNight_JustBuy.Areas.Admin.Controllers
 {
-    public class OrdersController : Controller
+    [Authorize(Roles = "true")]
+    public class OrdersController : BaseController
     {
         private JustBuyEntities db = new JustBuyEntities();
 
