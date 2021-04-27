@@ -8,9 +8,9 @@ using TheNight_JustBuy.Models;
 
 namespace TheNight_JustBuy.Areas.Admin.Controllers
 {
-    public class ValuesController : Controller
+    [Authorize(Roles = "true")]
+    public class ValuesController : BaseController
     {
-        // GET: Admin/Values
         private JustBuyEntities db = new JustBuyEntities();
         public ActionResult Index()
         {

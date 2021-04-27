@@ -1,8 +1,374 @@
-﻿
+﻿@model TheNight_JustBuy.Areas.Admin.Models.ReportModel
 @{
-    ViewBag.Title = "Index";
-    ViewBag.Manage = "Home";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Admin Dashboard";
+    ViewBag.Manage = "Admin Dashboard";
 }
 
-<h2>Index</h2>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-book"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@Html.DisplayNameFor(i => i.ProductTotal)</span>
+                        <span class="info-box-number">@Html.DisplayFor(i => i.ProductTotal)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-book-reader"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@Html.DisplayNameFor(i => i.OrderTotal)</span>
+                        <span class="info-box-number">@Html.DisplayFor(i => i.OrderTotal)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix hidden-md-up"></div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-plus"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@Html.DisplayNameFor(i => i.UserRegistration)</span>
+                        <span class="info-box-number">@Html.DisplayFor(i => i.UserRegistration)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Unique Visitors</span>
+                        <span class="info-box-number">@ApplicationInstance.Application[TheNight_JustBuy.Common.CommonConstants.TOTAL_VISITORS]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Proceeds Column Chart</h5>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="chart">
+                                    <canvas id="im-ex-Chart" height="180" style="height: 180px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-3 col-6">
+                                <div class="description-block border-right">
+                                    <h5 class="description-header">$@Html.DisplayFor(i => i.Proceeds)</h5>
+                                    <span class="description-text">@Html.DisplayNameFor(i => i.Proceeds)</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <div class="description-block border-right">
+                                    <h5 class="description-header">
+                                        $@Html.DisplayFor(i => i.ToDayProceeds)
+                                    </h5>
+                                    <span class="description-text">@Html.DisplayNameFor(i => i.ToDayProceeds)</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <div class="description-block border-right">
+                                    <h5 class="description-header">
+                                        $@Html.DisplayFor(i => i.WeekProceeds)
+                                    </h5>
+                                    <span class="description-text">@Html.DisplayNameFor(i => i.WeekProceeds)</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-6">
+                                <div class="description-block">
+                                    <h5 class="description-header">
+                                        $@Html.DisplayFor(i => i.MonthProceeds)
+                                    </h5>
+                                    <span class="description-text">@Html.DisplayNameFor(i => i.MonthProceeds)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Categories</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header border-transparent">
+                        <h3 class="card-title">New Orders</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th>FullName</th>
+                                        <th>Created Date</th>
+                                        <th>Product</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var item in (List<TheNight_JustBuy.Models.Order>)ViewBag.RecentlyOrders)
+                                        {
+                                            <tr>
+                                                <td>@item.User.FirstName @item.User.LastName</td>
+                                                <td>@item.CreatedDate</td>
+                                                <td>@item.OrderDetails.Count items</td>
+                                                <td>
+                                                    @if (item.Status == 1)
+                                                    {
+                                                        <span class="badge badge-success">success</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">failed</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer clearfix">
+                        <a href="@Url.Action("Index", "Orders")" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="info-box mb-3 bg-warning">
+                    <span class="info-box-icon"><i class="fas fa-comments"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@Html.DisplayNameFor(i => i.TotalComments)</span>
+                        <span class="info-box-number">@Html.DisplayFor(i => i.TotalComments)</span>
+                    </div>
+                </div>
+                <div class="info-box mb-3 bg-success">
+                    <span class="info-box-icon"><i class="fas fa-newspaper"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@Html.DisplayNameFor(i => i.TotalBlogs)</span>
+                        <span class="info-box-number">@Html.DisplayFor(i => i.TotalBlogs)</span>
+                    </div>
+                </div>
+                <div class="info-box mb-3 bg-danger">
+                    <span class="info-box-icon"><i class="fas fa-graduation-cap"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@Html.DisplayNameFor(i => i.SupplierTotal)</span>
+                        <span class="info-box-number">@Html.DisplayFor(i => i.SupplierTotal)</span>
+                    </div>
+                </div>
+                <div class="info-box mb-3 bg-info">
+                    <span class="info-box-icon"><i class="fas fa-pen"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@Html.DisplayNameFor(i => i.FeedbackTotal)</span>
+                        <span class="info-box-number">@Html.DisplayFor(i => i.FeedbackTotal)</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recently Added Blogs</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="products-list product-list-in-card pl-2 pr-2">
+                            @{
+                                foreach (var item in (List<TheNight_JustBuy.Models.Blog>)ViewBag.RencentlyBlog)
+                                {
+                                    <li class="item">
+                                        <div class="product-img">
+                                            <img src="@Url.Content(item.Thumbnail)" alt="Blog Image" class="img-size-50">
+                                        </div>
+                                        <div class="product-info">
+                                            <a href="@Url.Action("Details", "Blogs", new { id = item.BlogID })" class="product-title">
+                                                @item.BlogName
+                                                <span class="badge badge-warning float-right">@item.BlogCategory.CategoryName</span>
+                                            </a>
+                                            <span class="product-description">
+                                                @item.User.FirstName @item.User.LastName
+                                            </span>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="@Url.Action("Index", "Blogs")" class="uppercase">View All Blogs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section ScriptConfig{
+    <script src="~/Asset/plugins/chart.js/Chart.min.js"></script>
+    <script>
+        $(function () {
+            var lbDate = @Html.Raw(Json.Encode(ViewBag.LabelSaleChart));
+            var dataProceeds = @Html.Raw(Json.Encode(ViewBag.SaleChart));
+
+            var areaChartCanvas = $('#im-ex-Chart').get(0).getContext('2d')
+            var areaChartData = {
+                labels: lbDate,
+                datasets: [
+                    {
+                        label: '$',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: dataProceeds
+                    }
+                ]
+            }
+
+            var areaChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    display: true
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: true,
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: true,
+                        }
+                    }]
+                }
+            }
+            var areaChart = new Chart(areaChartCanvas, {
+                type: 'bar',
+                data: areaChartData,
+                options: areaChartOptions
+            })
+
+            var lbCategories = @Html.Raw(Json.Encode(ViewBag.CateLabel));
+            var dataQuantity = @Html.Raw(Json.Encode(ViewBag.CateData));
+
+            var barChartCanvas = $('#barChart').get(0).getContext('2d')
+            var barChartData = {
+                labels: lbCategories,
+                datasets: [
+                    {
+                        label: 'Products',
+                        backgroundColor: 'rgba(209, 2, 43,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fc035e',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: dataQuantity
+                    }
+                ]
+            }
+
+            var barChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    display: true
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: true,
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: true,
+                        }
+                    }]
+                }
+            }
+
+            var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            })
+        })
+    </script>
+}
 
