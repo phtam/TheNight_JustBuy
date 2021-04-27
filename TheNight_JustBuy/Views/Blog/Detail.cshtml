@@ -1,0 +1,149 @@
+﻿@model PagedList.IPagedList<TheNight_JustBuy.Models.BlogComment>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var blog = (TheNight_JustBuy.Models.Blog)ViewBag.BlogDetail;
+}
+
+<!--Hero Section-->
+<div class="hero-section hero-background">
+    <h1 class="page-title">Organic Fruits</h1>
+</div>
+
+<!--Navigation section-->
+<div class="container">
+    <nav class="biolife-nav">
+        <ul>
+            <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="permal-link">Blog</a></li>
+            <li class="nav-item"><a href="#" class="permal-link">@ViewBag.CategoryName</a></li>
+            <li class="nav-item"><span class="current-page">@ViewBag.BlogName</span></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-contain blog-page left-sidebar">
+    <div class="container">
+        <div class="row">
+
+            <!-- Main content -->
+            <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
+
+                <!--Single Post Contain-->
+                <div class="single-post-contain">
+
+                    <div class="post-head">
+                        <div class="thumbnail">
+                            <figure><img src="@Url.Content(blog.Thumbnail)" width="870" height="635" alt=""></figure>
+                        </div>
+                        <h2 class="post-name">@blog.BlogName</h2>
+                        <p class="post-archive"><b class="post-cat">@blog.BlogCategory.CategoryName</b><span class="post-date"> / @blog.CreatedDate</span><span class="author">Posted By: @blog.User.FirstName @blog.User.LastName</span></p>
+                    </div>
+
+                    <div class="post-content">
+                        @Html.Raw(blog.Content)
+                    </div>
+
+                    <div class="post-foot">
+
+                        <div class="post-tags">
+                            <span class="tag-title">Tags:</span>
+                            <ul class="tags">
+                                <li><a href="#" class="tag-link">Juice Drink</a></li>
+                                <li><a href="#" class="tag-link">Fast Food</a></li>
+                                <li><a href="#" class="tag-link">Fresh Food</a></li>
+                                <li><a href="#" class="tag-link">Hot</a></li>
+                                <li><a href="#" class="tag-link">Backpack</a></li>
+                                <li><a href="#" class="tag-link">Grooming</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="auth-info">
+                            <div class="ath">
+                                <a href="#" class="avata"><img src="~/Content/clients/images/blogpost/author-02.png" width="29" height="28" alt="Christian Doe">Christian Doe</a>
+                                <span class="count-item viewer"><i class="fa fa-eye" aria-hidden="true"></i>630</span>
+                                <span class="count-item commented"><i class="fa fa-commenting" aria-hidden="true"></i>26</span>
+                            </div>
+                            <div class="socials-connection">
+                                <span class="title">Share:</span>
+                                <ul class="social-list">
+                                    <li><a href="#" class="socail-link"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" class="socail-link"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" class="socail-link"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" class="socail-link"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" class="socail-link"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--Comment Block-->
+                <div class="post-comments">
+                    <h3 class="cmt-title">Comments<sup>(@blog.BlogComments.Count)</sup></h3>
+
+                    <div class="comment-form">
+                        @using (Html.BeginForm("Comment", "Blog", FormMethod.Post, new { @class = "comment-form", @id = "commentform", enctype = "multipart/form-data" }))
+                        {
+                            <p class="form-row">
+                                <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Write your comment"></textarea>
+                                <a href="#" class="current-author"><img src="~/Content/clients/images/blogpost/viewer-avt.png" width="41" height="41" alt=""></a>
+                            </p>
+                            @Html.Hidden("blogID", blog.BlogID)
+                            <p class="form-row last-btns">
+                                <button type="submit" class="btn btn-sumit">post a comment</button>
+                                <a href="#" class="btn btn-fn-1"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
+                                <a href="#" class="btn btn-fn-1"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+                                <a href="#" class="btn btn-fn-1"><i class="fa fa-file-image-o" aria-hidden="true"></i></a>
+                            </p>
+                        }
+                    </div>
+
+                    <div class="comment-list">
+
+                        <ol class="post-comments lever-0">
+                            <li class="comment-elem">
+                                <div class="wrap-post-comment">
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="cmt-inner">
+                                            <div class="auth-info">
+                                                <a href="#" class="author-contact"><img src="@Url.Content(item.User.Avatar)" alt="" width="29" height="28">@item.User.FirstName @item.User.LastName</a>
+                                                <span class="cmt-time">@item.CreatedDate</span>
+                                            </div>
+                                            <div class="cmt-content">
+                                                <p>
+                                                    @Html.Raw(item.Content)
+                                                </p>
+                                            </div>
+                                            <div class="cmt-fooot">
+                                                <a href="#" class="btn btn-response"><i class="fa fa-commenting" aria-hidden="true"></i>Comment</a>
+                                                <a href="#" class="btn btn-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>9</a>
+                                                <a href="#" class="btn btn-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>1</a>
+                                            </div>
+                                        </div>
+
+                                    }
+                                    </div>
+                            </li>
+                        </ol>
+
+                        <div class="biolife-panigations-block ">
+                            @Html.PagedListPager(Model, page => Url.Action("Detail",
+                                    new { id = blog.BlogID, page }))
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            @{ Html.RenderAction("BlogFilter", "Blog");}
+
+        </div>
+    </div>
+</div>
+

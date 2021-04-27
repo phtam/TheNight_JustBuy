@@ -82,6 +82,16 @@
 
 
                             <td class="project-actions text-right">
+                                <a class="btn btn-secondary btn-sm btn-block" href="~/Admin/Products/Import/@item.ProductID">
+                                    <i class="fas fa-file-import">
+                                    </i>
+                                    Import
+                                </a>
+                                <a class="btn btn-dark btn-sm btn-block" href="~/Admin/Products/Export/@item.ProductID">
+                                    <i class="fas fa-file-export">
+                                    </i>
+                                    Export
+                                </a>
                                 <a class="btn btn-warning btn-sm btn-block" href="~/Admin/Products/Images/@item.ProductID">
                                     <i class="fas fa-image">
                                     </i>
@@ -159,7 +169,6 @@
             ],
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
             "aoColumns": [
-                null,
                 null,
                 null,
                 null,

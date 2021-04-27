@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using TheNight_JustBuy.Areas.Admin.Models;
 using TheNight_JustBuy.Common;
 using TheNight_JustBuy.Models;
 
@@ -50,7 +51,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryImage,ImageFile")] Category category)
+        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryImage,ImageFile")] CategoryModelForCreate category)
         {
             if (ModelState.IsValid)
             {
@@ -69,8 +70,9 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
 
                 category.ImageFile.SaveAs(fileName);
 
+                var cate = new Category(category);
 
-                db.Categories.Add(category);
+                db.Categories.Add(cate);
 
                 if (db.SaveChanges() > 0)
                 {
@@ -97,7 +99,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(new CategoryModelForEdit(category));
         }
 
         // POST: Admin/Categories/Edit/5
@@ -105,13 +107,11 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryImage,ImageFile")] Category category)
+        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryImage,ImageFile")] CategoryModelForEdit category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                try
-                {
+
                     if (category.ImageFile == null)
                     {
                         category.CategoryImage = Session[CommonConstants.TEMP_CATEGORY_IMAGE].ToString();
@@ -139,8 +139,12 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                         {
                         }
                         category.ImageFile.SaveAs(fileName);
-
                     }
+                    
+                    var c = db.Categories.Find(category.CategoryID);
+                    c.CategoryID = category.CategoryID;
+                    c.CategoryName = category.CategoryName;
+                    c.CategoryImage = category.CategoryImage;
 
                     if (db.SaveChanges() > 0)
                     {
@@ -149,14 +153,8 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                     }
                     return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    TempData.Add(CommonConstants.SAVE_FAILED, true);
-                    ex.Entries.Single().Reload();
-                }
 
-                return RedirectToAction("Index");
-            }
+
             return View(category);
         }
 
