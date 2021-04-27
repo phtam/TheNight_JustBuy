@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminProfileController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\BestSellerConfigurationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogCategoriesController.cs" />
@@ -2860,6 +2861,7 @@
     <Content Include="Areas\Admin\Views\ProductComments\Details.cshtml" />
     <Content Include="Areas\Admin\Views\ProductComments\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ProductComments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProfile\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

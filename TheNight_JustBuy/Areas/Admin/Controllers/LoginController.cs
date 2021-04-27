@@ -31,9 +31,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                     account.Password = "";
                     return View(account);
                 }
-
                 bool isValidPass = encoder.Compare(account.Password, user.Password);
-
                 if (isValidPass)
                 {
                     if (user.Status == false)
@@ -64,13 +62,14 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                     return View(account);
                 }
             }
-            return View();
-        }
+                return View();
+            }
 
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             Session.Remove(Common.CommonConstants.ADMIN_LOGIN_SESSION);
+            TempData.Remove(Common.CommonConstants.LOGIN_SUCCESSFULLY);
             return Redirect("Index");
         }
     }

@@ -1,0 +1,211 @@
+﻿@model TheNight_JustBuy.Areas.Admin.Models.UserModelForEdit
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var user = (TheNight_JustBuy.ViewModels.AdminLoginModel)ViewBag.AdminInfo;
+    ViewBag.Title = "Profile - " + user.FirstName + " " + user.LastName;
+    ViewBag.Manage = "Profile Management";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="@Url.Content(user.Avatar)"
+                                 alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center">@user.FirstName @user.LastName</h3>
+
+                        <p class="text-muted text-center">@user.Username</p>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Gender</b> <a class="float-right">
+                                    @{
+                                        if (user.Gender == true)
+                                        {
+                                            <div>Male</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Female</div>
+                                        }
+                                    }
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Birthday</b> <a class="float-right">@user.Birthday.Value.ToShortDateString()</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Phone</b> <a class="float-right">@user.Phone</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Email</b> <a class="float-right">@user.Email</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Role</b> <a class="float-right">
+                                    @{
+                                        if (user.Role == true)
+                                        {
+                                            <div>Administrator</div>
+                                        }
+                                        else if (user.Role == false)
+                                        {
+                                            <div>Customer</div>
+                                        }
+                                    }
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#changepass" data-toggle="tab">Change Password</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="settings">
+                                @using (Html.BeginForm("Index", "AdminProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-horizontal">
+                                        <div class="card-body">
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.Username)
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control oso", @type = "date" } })
+                                                    @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10" style="width: 100%;">
+                                                    @Html.RadioButtonFor(model => model.Gender, true, new { Checked = "checked" })
+                                                    <span>Male</span>&emsp;&emsp;
+                                                    @Html.RadioButtonFor(model => model.Gender, false)
+                                                    <span>Female</span>
+                                                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Phone Number" } })
+                                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email", @id = "txtEmail" } })
+                                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                    <div style="color:red" id="notice_invalid_email"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                                <div class="col-sm-10">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" accept="image/*" name="EditedImage" id="EditedImage">
+                                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                                        @Html.ValidationMessageFor(model => model.EditedImage, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="offset-sm-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="tab-pane" id="changepass">
+                                <form class="form-horizontal" id="changePasswordForm">
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-12 col-form-label">Current Password</label>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="currentPass" name="currentPass" placeholder="Current Password">
+                                            <div id="invalid_currentpass"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail" class="col-sm-12 col-form-label">New Password</label>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="newPass" name="newPass" placeholder="New Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName2" class="col-sm-12 col-form-label">Confirm Password</label>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="confirmPass" name="confirmPass" placeholder="Confirm Password">
+                                            <div id="notice_success"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-2">
+                                            <button type="submit" class="btn btn-success">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section ScriptConfig
+{
+    @Styles.Render("~/asset/css/form")
+    @Scripts.Render("~/asset/scripts/form")
+    <script src="~/Asset/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/Content/jsControllers/jsChangePassword.js"></script>
+}
+
+
