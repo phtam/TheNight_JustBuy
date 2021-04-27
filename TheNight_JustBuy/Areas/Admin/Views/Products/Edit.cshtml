@@ -99,6 +99,7 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="ImageFile">
                                             <label class="custom-file-label" for="customFile">Choose file</label>
+                                            @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
@@ -138,12 +139,10 @@
     @Scripts.Render("~/asset/scripts/form")
     <link rel="stylesheet" href="~/Asset/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="~/Asset/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <script src="~/Asset/plugins/select2/js/select2.full.min.js"></script>
 
     <script>
         $(function () {
             $('#summernote_Description').summernote()
-            $('.select2').select2()
         })
 
     </script>

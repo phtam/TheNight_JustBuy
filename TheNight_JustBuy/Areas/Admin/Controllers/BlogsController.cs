@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using TheNight_JustBuy.Areas.Admin.Models;
 using TheNight_JustBuy.Models;
+using TheNight_JustBuy.ViewModels;
 
 namespace TheNight_JustBuy.Areas.Admin.Controllers
 {
@@ -17,14 +18,12 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
     {
         private JustBuyEntities db = new JustBuyEntities();
 
-        // GET: Admin/Blogs
         public ActionResult Index()
         {
             var list = db.Blogs.Include(b => b.BlogCategory).Include(b => b.User).Where(b => b.Status == 1 || b.Status == 0).ToList();
             return View(list);
         }
 
-        // GET: Admin/Blogs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -41,7 +40,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(blog);
         }
 
-        // GET: Admin/Blogs/Create
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.BlogCategories, "CategoryID", "CategoryName");
@@ -50,9 +48,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Blogs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
@@ -74,8 +69,8 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 fileName = Path.Combine(uploadFolderPath, fileName);
 
                 blog.ImageFile.SaveAs(fileName);
-                var user = 9;
-                blog.UserID = user;
+                var admin = (AdminLoginModel)Session[Common.CommonConstants.ADMIN_LOGIN_SESSION];
+                blog.UserID = admin.UserID;
 
                 var blogEntity = new Blog(blog);
 
@@ -89,12 +84,13 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.BlogCategories, "CategoryID", "CategoryName", blog.CategoryID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username", blog.UserID);
+            ViewBag.CategoryID = new SelectList(db.BlogCategories, "CategoryID", "CategoryName");
+            ViewBag.UserID = new SelectList(db.Users, "UserID", "Username");
+            ViewBag.StatusList = new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Show", Value = "1" }, new SelectListItem { Text = "Hide", Value = "0" }, }, "Value", "Text");
             return View(blog);
         }
 
-        // GET: Admin/Blogs/Edit/5
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -113,9 +109,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(new BlogModelForEdit(blog));
         }
 
-        // POST: Admin/Blogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
@@ -173,7 +166,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(blog);
         }
 
-        // GET: Admin/Blogs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -190,7 +182,6 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(blog);
         }
 
-        // POST: Admin/Blogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

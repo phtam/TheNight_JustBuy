@@ -517,6 +517,8 @@
     <Content Include="Content\clients\images\insta-04.jpg" />
     <Content Include="Content\clients\images\insta-05.jpg" />
     <Content Include="Content\clients\images\insta-06.jpg" />
+    <Content Include="Content\clients\images\justbuy-logo\logo_justbuy_L.gif" />
+    <Content Include="Content\clients\images\justbuy-logo\logo_justbuy_mini.gif" />
     <Content Include="Content\clients\images\languages\fr.jpg" />
     <Content Include="Content\clients\images\languages\ger.jpg" />
     <Content Include="Content\clients\images\languages\jap.jpg" />
@@ -2853,7 +2855,6 @@
     <Content Include="Areas\Admin\Views\BlogCategories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\BlogCategories\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\BlogCategories\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\BlogCategories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
@@ -2874,6 +2875,7 @@
     <Content Include="Areas\Admin\Views\ProductComments\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ProductComments\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminProfile\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogCategories\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

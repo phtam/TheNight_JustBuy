@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Scrypt;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using TheNight_JustBuy.Areas.Admin.Models;
 using TheNight_JustBuy.Models;
 using TheNight_JustBuy.ViewModels;
@@ -63,6 +65,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 userEntity.LastName = user.LastName;
                 userEntity.Birthday = user.Birthday;
                 userEntity.Gender = user.Gender;
+                userEntity.CreditCard = user.CreditCard;
                 userEntity.Phone = user.Phone;
                 userEntity.Email = user.Email;
                 userEntity.Avatar = user.Avatar;
@@ -80,6 +83,35 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             ViewBag.AdminInfo = ad;
             Session.Add(Common.CommonConstants.TEMP_ADMIN_IMAGE, ad.Avatar);
             return View(user);
+        }
+
+        public JsonResult ChangePassword(String currentpass, String newpass)
+        {
+            var jsonCurrent = new JavaScriptSerializer().Deserialize<string>(currentpass);
+            var jsonNew = new JavaScriptSerializer().Deserialize<string>(newpass);
+
+            ScryptEncoder encoder = new ScryptEncoder();
+            var admin = (AdminLoginModel)Session[Common.CommonConstants.ADMIN_LOGIN_SESSION];
+            var user = db.Users.SingleOrDefault(model => model.Username == admin.Username);
+
+            bool isValidPass = encoder.Compare(jsonCurrent, user.Password);
+
+            if (isValidPass)
+            {
+                user.Password = encoder.Encode(jsonNew);
+                db.SaveChanges();
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = false
+                });
+            }
         }
 
     }

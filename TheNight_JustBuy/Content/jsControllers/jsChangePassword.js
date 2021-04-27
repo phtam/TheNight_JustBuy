@@ -15,7 +15,7 @@
         submitHandler: function () {
             $.ajax({
                 data: { currentpass: JSON.stringify($("#currentPass").val()), newpass: JSON.stringify($("#newPass").val()) },
-                url: '/Admin/Profile/ChangePassword',
+                url: '/Admin/AdminProfile/ChangePassword',
                 dataType: 'json',
                 type: 'POST',
                 success: function (res) {

@@ -20,7 +20,7 @@
                 </p>
             </div>
             <div class="card-body">
-                <table id="BlogCategoryTable" class="table table-bordered table-striped">
+                <table id="CategoryTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>
@@ -29,7 +29,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.CategoryName)
                             </th>
-               
                             <th></th>
                         </tr>
                     </thead>
@@ -43,11 +42,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CategoryName)
                                 </td>
-
-
-
                                 <td class="project-actions text-right">
-
                                     <a class="btn btn-info btn-sm" href="@Url.Action("Edit", "BlogCategories", new { id = item.CategoryID })">
                                         <i class="fas fa-pencil-alt">
                                         </i>
@@ -72,10 +67,8 @@
 {
     @Styles.Render("~/asset/css/datatable")
     @Scripts.Render("~/asset/scripts/datatable")
-    <script src="~/Asset/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <script src="~/Asset/ajaxChangeSatus/coupons.js"></script>
     <script>
-        $("#BlogCategoryTable").DataTable({
+        $("#CategoryTable").DataTable({
             "responsive": true,
             "autoWidth": false,
             "dom": '<"pull-left"B><"pull-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
@@ -115,9 +108,10 @@
             "aoColumns": [
                 null,
                 null,
-               
                 { "width": "20%", "targets": 0 }
             ]
         });
     </script>
 }
+
+
