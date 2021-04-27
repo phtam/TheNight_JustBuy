@@ -5,12 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!--Hero Section-->
 <div class="hero-section hero-background">
     <h1 class="page-title">Organic Fruits</h1>
 </div>
 
-<!--Navigation section-->
 <div class="container">
     <nav class="biolife-nav">
         <ul>
@@ -130,8 +128,7 @@
                                                         <p class="message"></p>
                                                         <div class="buttons">
                                                             <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                                                            <a href="@Url.Action("AddItem", "Cart", new { productID = item.ProductID, quantity = 1 })" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,16 +139,11 @@
 
                             </ul>
                         </div>
-
                         <div class="biolife-panigations-block">
-                            @Html.PagedListPager(Model, page => Url.Action("Index",
-      new { id = ViewBag.CurrentBlogCate, page }))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { id = ViewBag.CurrentBlogCate, page }))
                         </div>
-
                     </div>
-
                 </div>
-
                 @{Html.RenderAction("FilterProducts", "Items");}
             </div>
         </div>

@@ -31,6 +31,21 @@ namespace TheNight_JustBuy.Controllers
             ViewBag.CategoryList = db.Categories.ToList();
             ViewBag.BlogCategoryList = db.BlogCategories.ToList();
             var user = (CustomerInformation)Session[Common.CommonConstants.USER_LOGIN_MODEL];
+            var cart = (List<Cart>)Session[Common.CommonConstants.CART_SESSION];
+            int itemQty = 0;
+            int total = 0;
+            if (cart != null)
+            {
+                ViewBag.Items = cart.Count;
+                foreach (var item in cart)
+                {
+                    itemQty += item.Quantity;
+                    total += (int)(item.Product.UnitPrice * item.Quantity);
+                }
+            }
+            ViewBag.ItemQuantity = itemQty;
+            ViewBag.Total = total;
+            
             if (user == null)
             {
                 ViewBag.IsLoggedIn = false;
@@ -40,6 +55,7 @@ namespace TheNight_JustBuy.Controllers
                 ViewBag.IsLoggedIn = true;
                 ViewBag.CustomerFullName = user.FirstName + " " + user.LastName;
             }
+
             return PartialView();
         }
 

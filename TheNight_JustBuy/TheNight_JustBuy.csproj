@@ -251,6 +251,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\UserRoleProvider.cs" />
     <Compile Include="ViewModels\AdminLoginModel.cs" />
+    <Compile Include="ViewModels\Cart.cs" />
     <Compile Include="ViewModels\CustomerInformation.cs" />
     <Compile Include="ViewModels\CustomerLoginModel.cs" />
     <Compile Include="ViewModels\UserRegisterModel.cs" />
