@@ -1,17 +1,22 @@
-﻿<aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
+﻿@{ 
+    var listCate = (List<TheNight_JustBuy.Models.Category>)ViewBag.Category;
+    var listSup = (List<TheNight_JustBuy.Models.Supplier>)ViewBag.Brand;
+}
+<aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
     <div class="biolife-mobile-panels">
         <span class="biolife-current-panel-title">Sidebar</span>
         <a class="biolife-close-btn" href="#" data-object="open-mobile-filter">&times;</a>
     </div>
     <div class="sidebar-contain">
         <div class="widget biolife-filter">
-            <h4 class="wgt-title">Departements</h4>
+            <h4 class="wgt-title">Categories</h4>
             <div class="wgt-content">
                 <ul class="cat-list">
-                    <li class="cat-list-item"><a href="#" class="cat-link">Organic Food</a></li>
-                    <li class="cat-list-item"><a href="#" class="cat-link">Fresh Fruit</a></li>
-                    <li class="cat-list-item"><a href="#" class="cat-link">Dried Fruits</a></li>
-                </ul>
+                    @foreach (var item in listCate)
+                    {
+                        <li class="cat-list-item"><a href="@Url.Action("Index", "Items", new {id = item.CategoryID })" class="cat-link">@item.CategoryName</a></li>
+                    }
+                    </ul>
             </div>
         </div>
 
@@ -55,9 +60,10 @@
             <h4 class="wgt-title">Brand</h4>
             <div class="wgt-content">
                 <ul class="check-list multiple">
-                    <li class="check-list-item"><a href="#" class="check-link">Great Value Organic</a></li>
-                    <li class="check-list-item"><a href="#" class="check-link">Plum Organic</a></li>
-                    <li class="check-list-item"><a href="#" class="check-link">Shop to Home</a></li>
+                    @foreach (var item in listSup)
+                    {
+                        <li class="check-list-item"><a href="@Url.Action("Brand", "Items", new {id = item.SupplierID })" class="check-link">@item.CompanyName</a></li>
+                    }
                 </ul>
             </div>
         </div>

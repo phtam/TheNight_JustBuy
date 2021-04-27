@@ -34,7 +34,8 @@ namespace TheNight_JustBuy.Models
         public string ContactName { get; set; }
 
 
-        
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter address")]
+        [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = "Address must be between 5 to 100")]
         public string Address { get; set; }
 
 

@@ -73,7 +73,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 fileName = Path.Combine(uploadFolderPath, fileName);
 
                 blog.ImageFile.SaveAs(fileName);
-                var user = 1;
+                var user = 9;
                 blog.UserID = user;
 
                 var blogEntity = new Blog(blog);

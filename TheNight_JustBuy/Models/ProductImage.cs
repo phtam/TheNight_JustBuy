@@ -11,11 +11,15 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class ProductImage
     {
+        [DisplayName("Image ID")]
         public int ImageID { get; set; }
+        [DisplayName("Image")]
         public string ImageFileName { get; set; }
+        [DisplayName("Product ID")]
         public Nullable<int> ProductID { get; set; }
     
         public virtual Product Product { get; set; }
