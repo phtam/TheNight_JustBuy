@@ -64,8 +64,8 @@
                     </div>
                     <p class="excerpt">@detail.ShortDescription</p>
                     <div class="price">
-                        <ins><span class="price-amount"><span class="currencySymbol"></span>@string.Format("{0:N0}", (decimal)detail.UnitPrice)₫</span></ins>
-                        <del><span class="price-amount"><span class="currencySymbol"></span>@string.Format("{0:N0}", (decimal)detail.OldUnitPrice)₫</span></del>
+                        <ins><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)detail.UnitPrice)</span></ins>
+                        <del><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)detail.OldUnitPrice)</span></del>
                     </div>
                     <div class="shipping-info">
                         <p class="shipping-day">3-Day Shipping</p>
