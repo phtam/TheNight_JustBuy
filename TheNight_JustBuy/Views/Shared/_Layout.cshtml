@@ -21,7 +21,7 @@
 </head>
 <body class="biolife-body">
 
-    @Html.Partial("HeaderClient")   
+    @{Html.RenderAction("HeaderClient", "Home");}
     
     @RenderBody()
 

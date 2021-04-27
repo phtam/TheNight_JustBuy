@@ -6,33 +6,15 @@ using System.Linq;
 using System.Web;
 using TheNight_JustBuy.CustomValidation;
 using TheNight_JustBuy.Models;
-using TheNight_JustBuy.ViewModels;
 
-namespace TheNight_JustBuy.Areas.Admin.Models
+namespace TheNight_JustBuy.ViewModels
 {
-    public class UserModelForEdit
+    public class CustomerInformation
     {
-        public UserModelForEdit()
+        public CustomerInformation()
         {
         }
-        public UserModelForEdit(AdminLoginModel user)
-        {
-            this.UserID = user.UserID;
-            this.Username = user.Username;
-            this.FirstName = user.FirstName;
-            this.LastName = user.LastName;
-            this.Password = user.Password;
-            this.CreditCard = user.CreditCard;
-            this.Gender = user.Gender;
-            this.Birthday = user.Birthday;
-            this.Phone = user.Phone;
-            this.Email = user.Email;
-            this.Avatar = user.Avatar;
-            this.Role = user.Role;
-            this.Status = user.Status;
-            this.Cart = user.Cart;
-        }
-        public UserModelForEdit(User user)
+        public CustomerInformation(User user)
         {
             this.UserID = user.UserID;
             this.Username = user.Username;
@@ -49,6 +31,7 @@ namespace TheNight_JustBuy.Areas.Admin.Models
             this.Status = user.Status;
             this.Cart = user.Cart;
         }
+       
         public int UserID { get; set; }
         public string Username { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid first name!")]
@@ -82,8 +65,6 @@ namespace TheNight_JustBuy.Areas.Admin.Models
         public string Cart { get; set; }
         [ImageValidationForUpdate]
         public HttpPostedFileBase EditedImage { get; set; }
-    }
-
-
     
+}
 }
