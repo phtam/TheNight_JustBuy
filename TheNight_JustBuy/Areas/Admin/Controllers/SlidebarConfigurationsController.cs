@@ -13,7 +13,8 @@ using TheNight_JustBuy.Models;
 
 namespace TheNight_JustBuy.Areas.Admin.Controllers
 {
-    public class SlidebarConfigurationsController : Controller
+    [Authorize(Roles = "true")]
+    public class SlidebarConfigurationsController : BaseController
     {
         private JustBuyEntities db = new JustBuyEntities();
 
