@@ -4,7 +4,7 @@
     },
     regEvents: function () {
         $('#btnContinue').off('click').on('click', function () {
-            window.location.href = "/home";
+            window.location.href = "~/home";
         });
         $('#btnUpdate-cart').off('click').on('click', function () {
             var listProduct = $('.txtQuantity');
@@ -12,8 +12,8 @@
             $.each(listProduct, function (i, item) {
                 cartList.push({
                     Quantity: $(item).val(),
-                    Bouquet: {
-                        BouquetID: $(item).data('id')
+                    Product: {
+                        ProductID: $(item).data('id')
                     }
                 });
             });
@@ -32,8 +32,6 @@
         });
 
         $('#btnDeleteAll').off('click').on('click', function () {
-
-
             $.ajax({
                 url: '/Cart/DeleteAll',
                 dataType: 'json',
@@ -51,45 +49,6 @@
             $.ajax({
                 data: { id: $(this).data('id') },
                 url: '/Cart/Delete',
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
-                        window.location.href = "/cart";
-                    }
-                }
-            })
-        });
-
-        $('#btnCoupon').off('click').on('click', function (e) {
-            e.preventDefault();
-            $.ajax({
-                data: { id: $("#txtCoupon").val() },
-                url: '/Cart/Coupon',
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == false) {
-                        $("#noticeCoupon").empty().append('<b style="color:red">' + res.notice + '</b>');
-                        $("#coupon_apply").empty().append('' + res.total + ' VND');
-                    }
-                    if (res.status == true) {
-                        $("#noticeCoupon").empty().append('<b style="color:green">' +res.notice+ '</b>');
-                        $("#coupon_apply").empty().append('' + res.total + ' VND');
-                    }
-                    
-                }
-            })
-        });
-
-
-        
-
-        $('.btnLater-item').off('click').on('click', function (e) {
-            e.preventDefault();
-            $.ajax({
-                data: { id: $(this).data('id') },
-                url: '/Cart/Later',
                 dataType: 'json',
                 type: 'POST',
                 success: function (res) {

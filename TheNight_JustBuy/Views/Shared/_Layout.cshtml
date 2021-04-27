@@ -22,7 +22,7 @@
 <body class="biolife-body">
 
     @{Html.RenderAction("HeaderClient", "Home");}
-    
+
     @RenderBody()
 
     @Html.Partial("FooterClient")
@@ -35,6 +35,7 @@
     <script src="~/Content/clients/js/slick.min.js"></script>
     <script src="~/Content/clients/js/biolife.framework.js"></script>
     <script src="~/Content/clients/js/functions.js"></script>
+    @RenderSection("ClientScript", false)
 </body>
 
 </html>

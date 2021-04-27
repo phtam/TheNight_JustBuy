@@ -151,10 +151,10 @@
                                 <div class="icon-contain">
                                     <div class="span-index">
                                         <i class="icon-cart-mini biolife-icon"></i>
-                                        <span class="qty">8</span>
-                                        <span class="sub-total">0 items - $0.00</span>
+                                        <span class="qty">@ViewBag.ItemQuantity</span>
+                                        <span class="sub-total">@ViewBag.Items items - $@ViewBag.Total</span>
                                     </div>
-                                    <a href="#" class="btn-to-cart">Go</a>
+                                    <a href="~/Cart/Index" class="btn-to-cart">Go</a>
                                 </div>
                                 <div class="cart-content">
                                     <div class="cart-inner">
