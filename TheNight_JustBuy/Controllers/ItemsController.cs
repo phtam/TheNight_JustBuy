@@ -24,7 +24,24 @@ namespace TheNight_JustBuy.Controllers
             var list = db.Products.Where(m => m.CategoryID == id && m.Status == true).ToList();
             var model = list.ToPagedList(pageNumber, pageSize);
             ViewBag.Child = db.Categories.Find(id).CategoryName;
+            ViewBag.Cate = db.Categories.Find(id).CategoryName;
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Search(string txtSearch, int? page)
+        {
+            if (page == null) page = 1;
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
+            if (txtSearch != null)
+            {
+                var list = db.Products.Where(m => m.ProductName.Contains(txtSearch) && m.Status == true).ToList();
+                var model = list.ToPagedList(pageNumber, pageSize);
+                return View(model);
+            }
+
+            return View();
         }
 
 

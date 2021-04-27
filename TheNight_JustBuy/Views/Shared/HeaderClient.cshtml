@@ -46,10 +46,14 @@
                 </div>
                 <div class="col-lg-9 col-md-10 padding-top-2px">
                     <div class="header-search-bar layout-01 no-product-cat">
-                        <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                            <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-                            <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
-                        </form>
+
+
+                            @using (Html.BeginForm("Search", "Items", FormMethod.Post, new { @class= "form-search" }))
+                            {
+                                <input name="txtSearch" value="" type="text" class="input-text" placeholder="Search here...">
+                                <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
+                            }
+
                     </div>
                     <div class="live-info">
                         <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">(+900) 123 456 7891</b></p>

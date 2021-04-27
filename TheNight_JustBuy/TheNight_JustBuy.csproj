@@ -248,6 +248,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\UserRoleProvider.cs" />
     <Compile Include="ViewModels\AdminLoginModel.cs" />
+    <Compile Include="ViewModels\UserRegisterModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Asset\ajaxChangeSatus\blogComment.js" />
@@ -2916,14 +2917,14 @@
     <Content Include="Views\Blog\Detail.cshtml" />
     <Content Include="Views\Blog\Category.cshtml" />
     <Content Include="Views\Blog\Search.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Items\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Values\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\CustomerProfile\" />
-    <Folder Include="Views\Register\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
