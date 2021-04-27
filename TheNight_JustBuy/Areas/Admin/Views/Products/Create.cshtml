@@ -98,8 +98,9 @@
                                     @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
                                     <div class="col-sm-10">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="ImageFile" required>
+                                            <input type="file" class="custom-file-input" name="ImageFile">
                                             <label class="custom-file-label" for="customFile">Choose file</label>
+                                            @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
@@ -142,12 +143,9 @@
     <script src="~/Content/jsControllers/jsValidateData.js"></script>
     @Styles.Render("~/asset/css/form")
     @Scripts.Render("~/asset/scripts/form")
-    @Styles.Render("~/asset/css/select2")
-    @Scripts.Render("~/asset/scripts/select2")
     <script>
         $(function () {
             $('#summernote_Description').summernote()
-            $('.select2').select2()
         })
 
     </script>
