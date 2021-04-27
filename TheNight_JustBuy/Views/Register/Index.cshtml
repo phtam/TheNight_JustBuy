@@ -1,0 +1,128 @@
+﻿@model TheNight_JustBuy.ViewModels.UserRegisterModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Hero Section-->
+<div class="hero-section hero-background">
+    <h1 class="page-title">Organic Fruits</h1>
+</div>
+
+<!--Navigation section-->
+<div class="container">
+    <nav class="biolife-nav">
+        <ul>
+            <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+            <li class="nav-item"><span class="current-page">Registration</span></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-contain login-page">
+
+    <!-- Main content -->
+    <div id="main-content" class="main-content">
+        <div class="container">
+
+            <div class="row">
+                <p style="color:red">@ViewBag.Mess</p>
+                <!--Form Sign In-->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="signin-container">
+                        @using (Html.BeginForm("Index", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                                <p class="form-row">
+                                    @Html.LabelFor(model => model.Username)
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "txt-input" } })
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                </p>
+                                <p class="form-row">
+                                    @Html.LabelFor(model => model.Password)
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "txt-input", @id = "password", @Value = "" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </p>
+                                <p class="form-row">
+                                    @Html.LabelFor(model => model.FirstName)
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "txt-input" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </p>
+                                <p class="form-row">
+                                    @Html.LabelFor(model => model.LastName)
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "txt-input" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </p>
+                                <p class="form-row">
+                                    @Html.LabelFor(model => model.CreditCard)
+                                    @Html.EditorFor(model => model.CreditCard, new { htmlAttributes = new { @class = "txt-input" } })
+                                    @Html.ValidationMessageFor(model => model.CreditCard, "", new { @class = "text-danger" })
+                                </p>
+
+                                <p class="input-group">
+                                    @Html.RadioButtonFor(model => model.Gender, true, new { Checked = "checked" })
+                                    <span>Male</span>&emsp;&emsp;
+                                    @Html.RadioButtonFor(model => model.Gender, false)
+                                    <span>Female</span>
+                                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                </p>
+                                <p class="form-row">
+                                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "txt-input oso", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+
+                                </p>
+                                <p class="form-row">
+                                    @Html.LabelFor(model => model.Phone)
+                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "txt-input" } })
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+
+                                </p>
+                                <p class="form-row">
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "txt-input", @id = "txtEmail" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                </p>
+                                <p class="form-row">
+                                    <label for="file" class="fName">
+                                        Select your avatar
+                                    </label>
+                                    <input type="file" id="file" class="file" name="ImageFile">
+                                    @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                </p>
+
+
+                                <p class="form-row wrap-btn">
+                                    <button class="btn btn-submit btn-bold" type="submit">sign up</button>
+                                    <a href="#" class="link-to-help">Forgot your password</a>
+                                </p>
+                        }
+                        </div>
+                </div>
+
+                <!--Go to Register form-->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="register-in-container">
+                        <div class="intro">
+                            <h4 class="box-title">New Customer?</h4>
+                            <p class="sub-title">Create an account with us and you’ll be able to:</p>
+                            <ul class="lis">
+                                <li>Check out faster</li>
+                                <li>Save multiple shipping anddesses</li>
+                                <li>Access your order history</li>
+                                <li>Track new orders</li>
+                                <li>Save items to your Wishlist</li>
+                            </ul>
+                            <a href="@Url.Action("Index", "Login")" class="btn btn-bold">Sign in</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

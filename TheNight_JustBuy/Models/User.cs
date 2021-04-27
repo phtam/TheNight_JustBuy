@@ -14,6 +14,7 @@ namespace TheNight_JustBuy.Models
     using System.ComponentModel.DataAnnotations;
     using System.Web;
     using TheNight_JustBuy.Areas.Admin.Models;
+    using TheNight_JustBuy.ViewModels;
 
     public partial class User
     {
@@ -28,6 +29,24 @@ namespace TheNight_JustBuy.Models
         }
 
         public User(UserModelForCreate user)
+        {
+            this.UserID = user.UserID;
+            this.Username = user.Username;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.Password = user.Password;
+            this.CreditCard = user.CreditCard;
+            this.Gender = user.Gender;
+            this.Birthday = user.Birthday;
+            this.Phone = user.Phone;
+            this.Email = user.Email;
+            this.Avatar = user.Avatar;
+            this.Role = user.Role;
+            this.Status = user.Status;
+            this.Cart = user.Cart;
+        }
+
+        public User(UserRegisterModel user)
         {
             this.UserID = user.UserID;
             this.Username = user.Username;

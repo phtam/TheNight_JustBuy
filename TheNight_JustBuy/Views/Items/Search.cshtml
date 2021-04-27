@@ -1,0 +1,104 @@
+﻿@model PagedList.IPagedList<TheNight_JustBuy.Models.Product>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Hero Section-->
+<div class="hero-section hero-background">
+    <h1 class="page-title">Organic Fruits</h1>
+</div>
+
+<!--Navigation section-->
+<div class="container">
+    <nav class="biolife-nav">
+        <ul>
+            <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="permal-link">Search</a></li>
+            <li class="nav-item"><span class="current-page">Products</span></li>
+        </ul>
+    </nav>
+</div>
+@if (Model.Count > 0)
+{
+
+
+    <div class="page-contain category-page left-sidebar">
+        <div class="container">
+            <div class="row">
+                <!-- Main content -->
+                <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
+
+
+
+                    <div class="product-category grid-style">
+
+
+                        <div class="row">
+                            <ul class="products-list">
+                                @{foreach (var item in Model)
+                                    {
+
+                                        <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                            <div class="contain-product layout-default">
+                                                <div class="product-thumb">
+                                                    <a href="@Url.Action("Detail", "Items", new {id = item.ProductID })" class="link-to-product">
+                                                        <img src="@Url.Content(item.Thumbnail)" alt="dd" width="270" height="270" class="product-thumnail">
+                                                    </a>
+                                                </div>
+                                                <div class="info">
+                                                    <b class="categories">@item.Category.CategoryName</b>
+                                                    <h4 class="product-title"><a href="@Url.Action("Detail", "Items", new {id = item.ProductID })" class="pr-name">@item.ProductName</a></h4>
+                                                    <div class="price">
+                                                        <ins><span class="price-amount"><span class="currencySymbol"></span>@string.Format("{0:N0}", (decimal)item.UnitPrice)₫</span></ins>
+                                                        <del><span class="price-amount"><span class="currencySymbol"></span>@string.Format("{0:N0}", (decimal)item.OldUnitPrice)₫</span></del>
+                                                    </div>
+                                                    <div class="shipping-info">
+                                                        <p class="shipping-day">3-Day Shipping</p>
+                                                        <p class="for-today">Pree Pickup Today</p>
+                                                    </div>
+                                                    <div class="slide-down-box">
+                                                        <p class="message"></p>
+                                                        <div class="buttons">
+                                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+
+                        <div class="biolife-panigations-block">
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+      new { id = ViewBag.CurrentBlogCate, page }))
+                        </div>
+
+                    </div>
+
+                </div>
+
+                @{Html.RenderAction("FilterProducts", "Items");}
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="alert alert-info">
+                <strong>Info!</strong> No results were found.
+            </div>
+        </div>
+    </div>
+
+
+}
+
