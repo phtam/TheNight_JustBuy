@@ -1,0 +1,90 @@
+﻿@model PagedList.IPagedList<TheNight_JustBuy.Models.Blog>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!--Hero Section-->
+<div class="hero-section hero-background">
+    <h1 class="page-title">Organic Fruits</h1>
+</div>
+
+<!--Navigation section-->
+<div class="container">
+    <nav class="biolife-nav">
+        <ul>
+            <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="permal-link">Blog</a></li>
+            <li class="nav-item"><span class="current-page">@ViewBag.Cate</span></li>
+        </ul>
+    </nav>
+</div>
+@if (Model.Count > 0)
+{
+
+
+
+
+    <div class="page-contain blog-page left-sidebar">
+        <div class="container">
+            <div class="row">
+
+                <!-- Main content -->
+                <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
+
+                    <ul class="posts-list main-post-list">
+
+                        @{
+                            foreach (var item in Model)
+                            {
+
+
+                                <li class="post-elem">
+                                    <div class="post-item style-left-info">
+                                        <div class="thumbnail">
+                                            <a href="#" class="link-to-post"><img src="@Url.Content(item.Thumbnail)" width="370" height="270" alt=""></a>
+                                        </div>
+                                        <div class="post-content">
+                                            <h4 class="post-name"><a href="@Url.Action("Detail", "Blog", new {id = item.BlogID })" class="linktopost">@item.BlogName</a></h4>
+                                            <p class="post-archive"><b class="post-cat">@item.BlogCategory.CategoryName</b><span class="post-date"> / @item.CreatedDate</span><span class="author">Posted By: @item.User.Username</span></p>
+                                            <p class="excerpt">@item.ShortDescription...</p>
+                                            <div class="group-buttons">
+                                                <a href="@Url.Action("Detail", "Blog", new {id = item.BlogID })" class="btn readmore">read more</a>
+                                                <a href="#" class="btn count-number liked"><i class="biolife-icon icon-heart-1"></i><span class="number">20</span></a>
+                                                <a href="#" class="btn count-number commented"><i class="biolife-icon icon-conversation"></i><span class="number">06</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+
+                    <div class="biolife-panigations-block ">
+                        @Html.PagedListPager(Model, page => Url.Action("Index",
+                            new { id = ViewBag.CurrentBlogCate, page }))
+                    </div>
+                </div>
+
+                @{ Html.RenderAction("BlogFilter", "Blog");}
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+<div class="container">
+    <div class="row">
+        <div class="alert alert-info">
+            <strong>Info!</strong> No results were found.
+        </div>
+    </div>
+</div>
+
+
+}
+

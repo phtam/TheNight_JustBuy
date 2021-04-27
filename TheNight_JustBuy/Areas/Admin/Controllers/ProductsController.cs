@@ -39,6 +39,84 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
             return View(product);
         }
 
+        public ActionResult Import(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = db.Products.Find(id);
+            ViewBag.ProductID = product.ProductID;
+            ViewBag.ProductName = product.ProductName;
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Import([Bind(Include = "ProductID,UnitsInStock")] Product p)
+        {
+            if (db.Products.Find(p.ProductID) == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (p.UnitsInStock < 0 || p.UnitsInStock.ToString().Length == 0)
+            {
+                TempData["Error"] = "Number of products must be greater than or equal to 0";
+                return RedirectToAction("Import", new { id = p.ProductID });
+            }
+
+            Product product = db.Products.Find(p.ProductID);
+            product.UnitsInStock += p.UnitsInStock;
+            if (db.SaveChanges()>0)
+            {
+                TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+            }
+            return RedirectToAction("Index", "Products");
+        }
+
+        public ActionResult Export(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = db.Products.Find(id);
+            ViewBag.ProductID = product.ProductID;
+            ViewBag.ProductName = product.ProductName;
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Export([Bind(Include = "ProductID,UnitsInStock")] Product p)
+        {
+            if (db.Products.Find(p.ProductID) == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (p.UnitsInStock < 0 || p.UnitsInStock.ToString().Length == 0)
+            {
+                TempData["Error"] = "Number of products must be greater than or equal to 0";
+                return RedirectToAction("Import", new { id = p.ProductID });
+            }
+
+            Product product = db.Products.Find(p.ProductID);
+            product.UnitsInStock -= p.UnitsInStock;
+            if (db.SaveChanges() > 0)
+            {
+                TempData.Add(Common.CommonConstants.CREATE_SUCCESSFULLY, true);
+            }
+            return RedirectToAction("Index", "Products");
+        }
+
         public ActionResult Images(int ?id)
         {
             if (id == null && db.Products.Find(id) == null)
@@ -219,7 +297,7 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                 p.UnitPrice = product.UnitPrice;
                 p.OldUnitPrice = product.OldUnitPrice;
                 p.ShortDescription = product.ShortDescription;
-                p.Description = product.ShortDescription;
+                p.Description = product.Description;
                 p.Thumbnail = product.Thumbnail;
                 p.UnitsInStock = product.UnitsInStock;
                 p.LaunchDate = product.LaunchDate;

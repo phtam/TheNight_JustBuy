@@ -11,14 +11,19 @@ namespace TheNight_JustBuy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class ProductComment
     {
+        [DisplayName("Comment ID")]
         public int ProductCommentID { get; set; }
+        [DisplayName("User ID")]
         public Nullable<int> UserID { get; set; }
         public string Content { get; set; }
         public Nullable<int> VotedMark { get; set; }
+        [DisplayName("Commented Date")]
         public Nullable<System.DateTime> CommentedDate { get; set; }
+        [DisplayName("Product ID")]
         public Nullable<int> ProductID { get; set; }
     
         public virtual Product Product { get; set; }

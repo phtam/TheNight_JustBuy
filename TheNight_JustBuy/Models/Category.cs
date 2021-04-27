@@ -14,6 +14,7 @@ namespace TheNight_JustBuy.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
+    using TheNight_JustBuy.Areas.Admin.Models;
 
     public partial class Category
     {
@@ -22,6 +23,14 @@ namespace TheNight_JustBuy.Models
         {
             this.Products = new HashSet<Product>();
         }
+
+        public Category(CategoryModelForCreate category)
+        {
+            this.CategoryID = category.CategoryID;
+            this.CategoryName = category.CategoryName;
+            this.CategoryImage = category.CategoryImage;
+        }
+
         [DisplayName("Category ID")]
         public int CategoryID { get; set; }
 
