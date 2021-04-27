@@ -119,8 +119,8 @@
                                                     <b class="categories">@item.Category.CategoryName</b>
                                                     <h4 class="product-title"><a href="@Url.Action("Detail", "Items", new {id = item.ProductID })" class="pr-name">@item.ProductName</a></h4>
                                                     <div class="price">
-                                                        <ins><span class="price-amount"><span class="currencySymbol"></span>@string.Format("{0:N0}", (decimal)item.UnitPrice)₫</span></ins>
-                                                        <del><span class="price-amount"><span class="currencySymbol"></span>@string.Format("{0:N0}", (decimal)item.OldUnitPrice)₫</span></del>
+                                                        <ins><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)item.UnitPrice)</span></ins>
+                                                        <del><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)item.OldUnitPrice)</span></del>
                                                     </div>
                                                     <div class="shipping-info">
                                                         <p class="shipping-day">3-Day Shipping</p>

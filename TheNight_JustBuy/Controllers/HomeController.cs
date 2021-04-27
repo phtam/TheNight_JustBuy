@@ -16,6 +16,12 @@ namespace TheNight_JustBuy.Controllers
             List<Configuration> slidebar = db.Configurations.Where(c => c.ConfigName.Contains("slidebar")).ToList();
             ViewBag.Slidebar = slidebar;
 
+            ViewBag.Latest = db.Products.Where(m => m.Status == true).OrderByDescending(m => m.ProductID).Take(8).ToList();
+            ViewBag.Expensive = db.Products.OrderByDescending(m => m.UnitPrice).FirstOrDefault(m => m.Status == true);
+            ViewBag.Blog = db.Blogs.Where(m => m.Status == 1).OrderByDescending(m => m.BlogID).Take(8).ToList();
+            ViewBag.ListCheap = db.Products.Where(m => m.Status == true).OrderByDescending(m => m.UnitPrice).Take(8).ToList();
+
+
             return View();
         }
 
