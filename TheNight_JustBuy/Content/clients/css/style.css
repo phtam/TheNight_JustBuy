@@ -6906,14 +6906,14 @@ body.open-overlay #overlay{
 .slider-opt03__layout01.mode-03 .media{
     height: 1072px;
 }
-.slider-opt03__layout01.slide-bgr-mode03-01 .media{
-     background-image: url('../images/home-01/main-slide-01.jpg');
- }
-.slider-opt03__layout01.slide-bgr-mode03-02 .media{
-    background-image: url('../images/home-01/main-slide-02.jpg');
+.slider-opt03__layout01.slide-bgr-mode03-01 .media {
+    background-image: url('../images/justbuy-banner/Banner7215504349.jpg');
 }
-.slider-opt03__layout01.slide-bgr-mode03-03 .media{
-    background-image: url('../images/home-01/main-slide-03.jpg');
+.slider-opt03__layout01.slide-bgr-mode03-02 .media {
+    background-image: url('../images/justbuy-banner/banner6s215451706.jpg');
+}
+.slider-opt03__layout01.slide-bgr-mode03-03 .media {
+    background-image: url('../images/justbuy-banner/banner5.jpg');
 }
 .slider-opt03__layout02 .media{
     z-index: 10;
@@ -9926,30 +9926,31 @@ li.slick-current .slider-opt04__layout01 .buttons .btn{
     -o-transform: scale(1);
     transform: scale(1);
 }
-.biolife-banner__grid .media-contain{
+.biolife-banner__grid .media-contain {
     display: inline-block;
     height: 375px;
     width: 100%;
-    background-image: url('../images/home-02/banner-grid-02.jpg');
+    background-image: url('../images/justbuy-banner/ib12.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
 }
-.biolife-banner__grid .media-contain.media-01{
-    background-image: url('../images/home-02/banner-grid-01.jpg');
+.biolife-banner__grid .media-contain.media-01 {
+    background-image: url('../images/justbuy-banner/note-20-Gray.png');
     height: 750px;
 }
-.biolife-banner__grid .media-contain.media-03{
-    background-image: url('../images/home-02/banner-grid-03.jpg');
+.biolife-banner__grid .media-contain.media-03 {
+    background-image: url('../images/justbuy-banner/ib11.png');
 }
-.biolife-banner__grid .media-contain.media-04{
-    background-image: url('../images/home-02/banner-grid-04.jpg');
+.biolife-banner__grid .media-contain.media-04 {
+    background-image: url('../images/justbuy-banner/ib3.png');
 }
-.biolife-banner__grid .media-contain.media-05{
-    background-image: url('../images/home-02/banner-grid-05.jpg');
+.biolife-banner__grid .media-contain.media-05 {
+    background-image: url('../images/justbuy-banner/ib2.png');
 }
-.biolife-banner__grid .media-contain.media-06{
-    background-image: url('../images/home-02/banner-grid-06.jpg');
+.biolife-banner__grid .media-contain.media-06 {
+
+    background-image: url('../images/justbuy-banner/xiaomi-redmi-note-10-pro_2_.png');
     height: 750px;
     background-position: center center;
 }

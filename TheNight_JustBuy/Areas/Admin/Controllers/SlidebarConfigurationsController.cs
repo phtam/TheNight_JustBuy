@@ -72,9 +72,9 @@ namespace TheNight_JustBuy.Areas.Admin.Controllers
                     {
                         string fileName = Path.GetFileNameWithoutExtension(configuration.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(configuration.ImageFile.FileName);
 
-                        configuration.ImageFileName = "~/public/uploadedFiles/configurationPictures/" + fileName;
+                        configuration.ImageFileName = "/images/justbuy-banner/" + fileName;
 
-                        string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/configurationPictures/");
+                        string uploadFolderPath = Server.MapPath("~/Content/clients/images/justbuy-banner/");
 
                         if (Directory.Exists(uploadFolderPath) == false)
                         {

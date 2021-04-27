@@ -20,5 +20,6 @@ namespace TheNight_JustBuy.Common
         public static string LOGIN_SUCCESSFULLY = "LOGIN_SUCCESSFULLY";
         public static string TOTAL_VISITORS = "TOTAL_VISITORS";
         public static string TEMP_ADMIN_IMAGE = "TEMP_ADMIN_IMAGE";
+        public static string USER_LOGIN_MODEL = "USER_LOGIN_MODEL";
     }
 }
