@@ -42,7 +42,7 @@ namespace TheNight_JustBuy.Controllers
 
                 ScryptEncoder encoder = new ScryptEncoder();
                 user.Password = encoder.Encode(user.Password);
-                user.Role = false; //  => cus
+                user.Role = false;
                 user.Status = true;
 
                 var userEntity = new User(user);
@@ -50,7 +50,10 @@ namespace TheNight_JustBuy.Controllers
                 db.Users.Add(userEntity);
 
                 if (db.SaveChanges() > 0)
-                    ViewBag.Mess = "Dang ky ok";
+                {
+                    TempData.Add(Common.CommonConstants.REGISTER_SUCCESSFULLY, true);
+                }
+                
                    
                 return View();
             }

@@ -369,6 +369,15 @@
     <Content Include="Content\clients\images\home-01\brd-02.png" />
     <Content Include="Content\clients\images\home-01\brd-03.png" />
     <Content Include="Content\clients\images\home-01\brd-04.png" />
+    <Content Include="Content\clients\images\home-01\hinhnghien.png" />
+    <Content Include="Content\clients\images\home-01\instag-inline-01.jpg" />
+    <Content Include="Content\clients\images\home-01\instag-inline-02.jpg" />
+    <Content Include="Content\clients\images\home-01\instag-inline-03.jpg" />
+    <Content Include="Content\clients\images\home-01\instag-inline-04.jpg" />
+    <Content Include="Content\clients\images\home-01\instag-inline-05.jpg" />
+    <Content Include="Content\clients\images\home-01\instag-inline-06.jpg" />
+    <Content Include="Content\clients\images\home-01\instag-inline-07.jpg" />
+    <Content Include="Content\clients\images\home-01\instag-inline-08.jpg" />
     <Content Include="Content\clients\images\home-01\main-slide-01.jpg" />
     <Content Include="Content\clients\images\home-01\main-slide-02.jpg" />
     <Content Include="Content\clients\images\home-01\main-slide-03.jpg" />
@@ -2797,6 +2806,8 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\CustomerProfile\Index.cshtml" />
+    <Content Include="Views\Cart\Success.cshtml" />
+    <Content Include="Views\Shared\ClientAlert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
