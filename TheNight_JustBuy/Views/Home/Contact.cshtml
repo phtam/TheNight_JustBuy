@@ -1,4 +1,4 @@
-﻿
+﻿@model TheNight_JustBuy.Models.Feedback
 @{
     ViewBag.Title = "Contact";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -74,23 +74,38 @@
 
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="contact-form-container sm-margin-top-112px">
-                        <form action="#" name="frm-contact">
+                        <h4 style="color:blue">@ViewBag.Mess</h4>
+                        @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "comment-form", @id = "commentform", enctype = "multipart/form-data" }))
+                        {
                             <p class="form-row">
-                                <input type="text" name="name" value="" placeholder="Your Name" class="txt-input">
+                                <input type="text" name="FullName" required value="" placeholder="Your Name" class="txt-input">
+
                             </p>
+                            <b style="color:red"> @ViewBag.FullName</b>
+                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                             <p class="form-row">
-                                <input type="email" name="email" value="" placeholder="Email Address" class="txt-input">
+                                <input type="text" name="Subject" value="" required placeholder="Subject" class="txt-input">
+
                             </p>
+                            <b style="color:red"> @ViewBag.Subject</b>
+                            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
                             <p class="form-row">
-                                <input type="tel" name="phone" value="" placeholder="Phone Number" class="txt-input">
+                                <input type="email" name="Email" value="" required placeholder="Email" class="txt-input">
+
                             </p>
+                            <b style="color:red"> @ViewBag.Email</b>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
                             <p class="form-row">
-                                <textarea name="mes" id="mes-1" cols="30" rows="9" placeholder="Leave Message"></textarea>
+                                <textarea name="Content" cols="30" rows="9" required  placeholder="Leave Message"></textarea>
+
                             </p>
+                            <b style="color:red"> @ViewBag.Content</b>
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                             <p class="form-row">
                                 <button class="btn btn-submit" type="submit">send message</button>
                             </p>
-                        </form>
+                        }
                     </div>
                 </div>
 

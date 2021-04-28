@@ -13,8 +13,6 @@ namespace TheNight_JustBuy.Controllers
         private JustBuyEntities db = new JustBuyEntities();
         public ActionResult Index()
         {
-            List<Configuration> slidebar = db.Configurations.Where(c => c.ConfigName.Contains("slidebar")).ToList();
-            ViewBag.Slidebar = slidebar;
 
             ViewBag.Latest = db.Products.Where(m => m.Status == true).OrderByDescending(m => m.ProductID).Take(8).ToList();
             ViewBag.Expensive = db.Products.OrderByDescending(m => m.UnitPrice).FirstOrDefault(m => m.Status == true);
@@ -30,6 +28,7 @@ namespace TheNight_JustBuy.Controllers
         {
             ViewBag.CategoryList = db.Categories.ToList();
             ViewBag.BlogCategoryList = db.BlogCategories.ToList();
+            ViewBag.SupplierList = db.Suppliers.ToList();
             var user = (CustomerInformation)Session[Common.CommonConstants.USER_LOGIN_MODEL];
             var cart = (List<Cart>)Session[Common.CommonConstants.CART_SESSION];
             int itemQty = 0;
@@ -77,6 +76,51 @@ namespace TheNight_JustBuy.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Contact(string FullName, string Subject, string Email, string Content)
+        {
+            if (FullName == "")
+            {
+                ViewBag.Fullname = "Do not be empty!";
+                return View();
+            }
+            if(Subject == "")
+            {
+                ViewBag.Subject = "Do not be empty!";
+                return View();
+            }
+            if (Email == "")
+            {
+                ViewBag.Email = "Do not be empty! Must be in the correct format!";
+                return View();
+            }
+            if (Subject == "")
+            {
+                ViewBag.Subject = "Do not be empty!";
+                return View();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var f = new Feedback();
+                    f.FullName = FullName;
+                    f.Subject = Subject;
+                    f.Email = Email;
+                    f.Content = Content;
+                    db.Feedbacks.Add(f);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return View();
+                }
+            }
+            ViewBag.Mess = "Submitted successfully!";
             return View();
         }
     }

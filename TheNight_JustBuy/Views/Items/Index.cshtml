@@ -18,6 +18,7 @@
         </ul>
     </nav>
 </div>
+
 @if (Model.Count > 0)
 {
 <div class="page-contain category-page left-sidebar">
@@ -30,22 +31,20 @@
                             <ul class="products-list">
                                 @{foreach (var item in Model)
                                     {
-
-
-                                        <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                                            <div class="contain-product layout-default">
-                                                <div class="product-thumb">
-                                                    <a href="@Url.Action("Detail", "Items", new {id = item.ProductID })" class="link-to-product">
-                                                        <img src="@Url.Content(item.Thumbnail)" alt="dd" width="270" height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">@item.Category.CategoryName</b>
-                                                    <h4 class="product-title"><a href="@Url.Action("Detail", "Items", new {id = item.ProductID })" class="pr-name">@item.ProductName</a></h4>
-                                                    <div class="price">
-                                                        <ins><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)item.UnitPrice)</span></ins>
-                                                        <del><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)item.OldUnitPrice)</span></del>
+                                            <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                                <div class="contain-product layout-default">
+                                                    <div class="product-thumb">
+                                                        <a href="@Url.Action("Detail", "Items", new {id = item.ProductID })" class="link-to-product">
+                                                            <img src="@Url.Content(item.Thumbnail)" alt="dd" width="270" height="270" class="product-thumnail">
+                                                        </a>
                                                     </div>
+                                                    <div class="info">
+                                                        <b class="categories">@item.Category.CategoryName</b>
+                                                        <h4 class="product-title"><a href="@Url.Action("Detail", "Items", new {id = item.ProductID })" class="pr-name">@item.ProductName</a></h4>
+                                                        <div class="price">
+                                                            <ins><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)item.UnitPrice)</span></ins>
+                                                            <del><span class="price-amount"><span class="currencySymbol">$</span>@string.Format("{0:N0}", (decimal)item.OldUnitPrice)</span></del>
+                                                        </div>
                                                     <div class="shipping-info">
                                                         <p class="shipping-day">3-Day Shipping</p>
                                                         <p class="for-today">Pree Pickup Today</p>
@@ -57,33 +56,34 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        }
                                     }
-                                }
 
-                            </ul>
-                        </div>
-                        <div class="biolife-panigations-block">
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { id = ViewBag.CurrentBlogCate, page }))
+                                </ul>
+                            </div>
+                            <div class="biolife-panigations-block">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { id = ViewBag.CateID, page }))
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="alert alert-info">
+                                <strong>Info!</strong> No results were found.
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
                 @{Html.RenderAction("FilterProducts", "Items");}
             </div>
         </div>
     </div>
-}
-else
-{
-    <div class="container">
-        <div class="row">
-            <div class="alert alert-info">
-                <strong>Info!</strong> No results were found.
-            </div>
-        </div>
-    </div>
 
-
-}
 
