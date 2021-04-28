@@ -128,7 +128,7 @@
                     <ul class="tabs">
                         <li class="tab-element active"><a href="#tab_1st" class="tab-link">Products Descriptions</a></li>
                         <li class="tab-element"><a href="#tab_3rd" class="tab-link">Shipping & Delivery</a></li>
-                        <li class="tab-element"><a href="#tab_4th" class="tab-link">Customer Reviews <sup>(3)</sup></a></li>
+                        <li class="tab-element"><a href="#tab_4th" class="tab-link">Customer Reviews <sup>(@detail.ProductComments.Count)</sup></a></li>
                     </ul>
                 </div>
                 <div class="tab-content">
@@ -244,6 +244,7 @@
                                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
                                     <div class="review-form-wrapper">
                                         <span class="title">Submit your review</span>
+                                        <h4 style="color:blue">@ViewBag.MessComment</h4>
                                         @using (Html.BeginForm("Comment", "Items", FormMethod.Post, new { @class = "comment-form", @id = "commentform", enctype = "multipart/form-data" }))
                                         {
                                             <div class="comment-form-rating">

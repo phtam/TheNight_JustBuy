@@ -1,7 +1,7 @@
 ﻿@{ 
     var categoryList = (List<TheNight_JustBuy.Models.Category>)ViewBag.CategoryList;
     var blogCategoryList = (List<TheNight_JustBuy.Models.BlogCategory>)ViewBag.BlogCategoryList;
-
+    var supplierList = (List<TheNight_JustBuy.Models.Supplier>)ViewBag.SupplierList;
 
 }
 
@@ -30,18 +30,12 @@
             </div>
             <div class="top-bar right">
                 <ul class="horizontal-menu">
-                    <li class="horz-menu-item currency">
-                        <select name="currency">
-                            <option value="eur">€ EUR (Euro)</option>
-                            <option value="usd" selected>$ USD (Dollar)</option>
-                            <option value="usd">£ GBP (Pound)</option>
-                            <option value="usd">¥ JPY (Yen)</option>
-                        </select>
-                    </li>
+
                     @{
                         if (ViewBag.IsLoggedIn == true)
                         {
                             <li><a href="~/CustomerProfile" class="login-link"><i class="biolife-icon icon-login"></i>@ViewBag.CustomerFullName</a></li>
+                            <li><a href="~/CustomerLogin/Logout" class="login-link"><i class="biolife-icon icon-login"></i>Log out</a></li>
                         }
                         else
                         {
@@ -91,7 +85,7 @@
                                 <span class="line-2"></span>
                                 <span class="line-3"></span>
                             </span>
-                            <span class="menu-title">All departments</span>
+                            <span class="menu-title">All categories</span>
                             <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                         </div>
                         <div class="wrap-menu">
@@ -123,6 +117,15 @@
                                     @foreach (var bc in blogCategoryList)
                                     {
                                         <li class="menu-item"><a href="@Url.Action("Category", "Blog", new { id = bc.CategoryID })">@bc.CategoryName</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            <li class="menu-item menu-item-has-children has-child">
+                                <a href="#" class="menu-name" data-title="Product">Brand</a>
+                                <ul class="sub-menu">
+                                    @foreach (var bc in supplierList)
+                                    {
+                                        <li class="menu-item"><a href="@Url.Action("Index", "Brand", new { id = bc.SupplierID })">@bc.CompanyName</a></li>
                                     }
                                 </ul>
                             </li>

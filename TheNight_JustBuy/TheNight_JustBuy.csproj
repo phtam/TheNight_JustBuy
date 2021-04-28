@@ -175,11 +175,13 @@
     <Compile Include="Areas\Admin\Models\UserModelForEdit.cs" />
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomerLoginController.cs" />
     <Compile Include="Controllers\CustomerProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="CustomValidation\DOBValidation.cs" />
     <Compile Include="CustomValidation\ExistedUsername.cs" />
@@ -2791,12 +2793,15 @@
     <Content Include="Views\Blog\Detail.cshtml" />
     <Content Include="Views\Blog\Category.cshtml" />
     <Content Include="Views\Blog\Search.cshtml" />
+    <Content Include="Views\Brand\Index.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\CustomerProfile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Values\" />
-    <Folder Include="Views\CustomerProfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

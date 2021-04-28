@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TheNight_JustBuy.Models;
 using PagedList;
+using TheNight_JustBuy.ViewModels;
 
 namespace TheNight_JustBuy.Controllers
 {
@@ -42,7 +43,23 @@ namespace TheNight_JustBuy.Controllers
         [ValidateInput(false)]
         public ActionResult Comment(string comment, int? blogID)
         {
-            User user = db.Users.Find(1);           
+            var user = (CustomerInformation)Session[Common.CommonConstants.USER_LOGIN_MODEL];
+            if (user is null)
+            {
+
+                return RedirectToAction("Index", "Register");
+            }
+            if (comment == null)
+            {
+                ViewBag.MessComment = "Please enter a comment!";
+                return RedirectToAction("Detail", "Blog", new { id = blogID });
+            }
+            if (comment.Length == 0)
+            {
+                ViewBag.MessComment = "Please enter a comment!";
+                return RedirectToAction("Detail", "Blog", new { id = blogID });
+            }
+          
             var cmt = new BlogComment();
 
             cmt.UserID = user.UserID;
