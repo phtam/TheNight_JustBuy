@@ -1,0 +1,48 @@
+﻿@if (TempData[TheNight_JustBuy.Common.CommonConstants.CREATE_SUCCESSFULLY] != null)
+{
+    <script>
+        toastr.success('Successfully created!');
+    </script>
+}
+
+@if (TempData[TheNight_JustBuy.Common.CommonConstants.REGISTER_SUCCESSFULLY] != null)
+{
+    <script>
+        toastr.success('Successfully registered!');
+    </script>
+}
+
+@if (TempData[TheNight_JustBuy.Common.CommonConstants.DELETE_SUCCESSFULLY] != null)
+{
+    <script>
+        toastr.success('Successfully deleted!');
+    </script>
+}
+
+@if (TempData[TheNight_JustBuy.Common.CommonConstants.DELETE_FAILED] != null)
+{
+    <script>
+        toastr.error('Data is being managed. You can not delete it.');
+    </script>
+}
+
+@if (TempData[TheNight_JustBuy.Common.CommonConstants.SAVE_SUCCESSFULLY] != null)
+{
+    <script>
+        toastr.success('Your work has been saved!');
+    </script>
+}
+
+@if (TempData[TheNight_JustBuy.Common.CommonConstants.SAVE_FAILED] != null)
+{
+    <script>
+        toastr.error('Update failed. Try again, please!');
+    </script>
+}
+
+@if (TempData[TheNight_JustBuy.Common.CommonConstants.LOGIN_SUCCESSFULLY] != null)
+{
+    <script>
+        toastr.success('Successfully signed in.');
+    </script>
+}

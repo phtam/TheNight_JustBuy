@@ -130,14 +130,25 @@ namespace TheNight_JustBuy.Controllers
             {
                 list = (List<Cart>)cart;
             }
+            long total = 0;
+            foreach (var item in list)
+            {
+                total += (long)(item.Product.UnitPrice * item.Quantity);
+            }
+            ViewBag.TotalTogether = total;
             return View(list);
         }
 
         [HttpPost]
-        public ActionResult CheckOut(int UserID, string Note)
+        public ActionResult CheckOut(string Note)
         {
+            if (Session[Common.CommonConstants.USER_LOGIN_MODEL] == null)
+            {
+                return RedirectToAction("Index", "CustomerLogin");
+            }
+            var cus = (CustomerInformation)Session[Common.CommonConstants.USER_LOGIN_MODEL];
             var order = new Order();
-            order.UserID = UserID;
+            order.UserID = cus.UserID;
             order.Note = Note;
             order.CreatedDate = DateTime.Now;
             order.Status = 0;
@@ -159,17 +170,61 @@ namespace TheNight_JustBuy.Controllers
                         TempData["CheckoutMessage"] = orderDetail.Product.ProductName + "is in stock less than the quantity you ordered!";
                         return RedirectToAction("Checkout");
                     }
-
                     db.OrderDetails.Add(orderDetail);
                 }
+                db.SaveChanges();
             }
             catch (Exception)
             {
-                return Redirect("cart");
+                return RedirectToAction("Index", "Cart");
             }
             Session[CommonConstants.CART_SESSION] = null;
             return RedirectToAction("Success");
         }
 
+        public JsonResult AddMultiItem(int productID, int quantity)
+        {
+            var product = db.Products.Find(productID);
+            var cart = Session[CommonConstants.CART_SESSION];
+            if (cart != null)
+            {
+                var list = (List<Cart>)cart;
+                if (list.Exists(x => x.Product.ProductID == productID))
+                {
+                    foreach (var item in list)
+                    {
+                        if (item.Product.ProductID == productID)
+                        {
+                            item.Quantity += quantity;
+                        }
+                    }
+                }
+                else
+                {
+                    var item = new Cart();
+                    item.Product = product;
+                    item.Quantity = quantity;
+                    list.Add(item);
+                }
+                Session[CommonConstants.CART_SESSION] = list;
+            }
+            else
+            {
+                var item = new Cart();
+                item.Product = product;
+                item.Quantity = quantity;
+                var list = new List<Cart>();
+                list.Add(item);
+                Session[CommonConstants.CART_SESSION] = list;
+            }
+            return Json(new
+            {
+                status = true
+            });
+        }
+        public ActionResult Success()
+        {
+            return View();
+        }
     }
 }
