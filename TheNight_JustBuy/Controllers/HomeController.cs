@@ -58,6 +58,13 @@ namespace TheNight_JustBuy.Controllers
 
             return PartialView();
         }
+        [ChildActionOnly]
+        public ActionResult FooterClient()
+        {
+            ViewBag.FCategoryList = db.Categories.ToList();
+            ViewBag.FBlogCategoryList = db.BlogCategories.ToList();
+            return PartialView();
+        }
 
         public ActionResult About()
         {
