@@ -27,7 +27,7 @@
 
     @RenderBody()
 
-    @Html.Partial("FooterClient")
+    @{Html.RenderAction("FooterClient", "Home");}
 
     <script src="~/Content/clients/js/jquery-3.4.1.min.js"></script>
     <script src="~/Content/clients/js/bootstrap.min.js"></script>
