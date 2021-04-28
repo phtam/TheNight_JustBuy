@@ -2800,6 +2800,8 @@
     <Content Include="Views\Blog\Detail.cshtml" />
     <Content Include="Views\Blog\Category.cshtml" />
     <Content Include="Views\Blog\Search.cshtml" />
+    <Content Include="Views\Cart\Success.cshtml" />
+    <Content Include="Views\Shared\ClientAlert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-﻿
+﻿@model List<TheNight_JustBuy.ViewModels.Cart>
 @{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -28,15 +28,14 @@
                         <ul class="steps">
                             <li class="step 1st">
                                 <div class="checkout-act active">
-                                    <h3 class="title-box"><span class="number">*</span>Customer</h3>
+                                    <h3 class="title-box"><span class="number">*</span>Customer Information</h3>
                                     <div class="box-content">
                                         <div class="login-on-checkout">
                                             @using (Html.BeginForm("CheckOut", "Cart", FormMethod.Post))
                                             {
                                                 <p class="form-row">
                                                     <label for="input_email">Note</label>
-                                                    <input type="email" name="email" id="input_email" value="" placeholder="Your email">
-                                                    @Html.Editor("Note", new { htmlAttributes = new { @placeholder = "Enter your note" } })
+                                                    <input type="email" name="Note" id="input_email" value="" placeholder="Your Note">
                                                     <button type="submit" name="btn-sbmt" class="btn">Checkout</button>
                                                 </p>
                                             }
@@ -57,69 +56,32 @@
                         <div class="cart-list-box short-type">
                             <span class="number">2 items</span>
                             <ul class="cart-list">
-                                <li class="cart-elem">
-                                    <div class="cart-item">
-                                        <div class="product-thumb">
-                                            <a class="prd-thumb" href="#">
-                                                <figure><img src="assets/images/shippingcart/pr-01.jpg" width="113" height="113" alt="shop-cart"></figure>
-                                            </a>
+                                @foreach (var item in Model)
+                                {
+                                    <li class="cart-elem">
+                                        <div class="cart-item">
+                                            <div class="product-thumb">
+                                                <a class="prd-thumb" href="#">
+                                                    <figure><img src="@Url.Content(item.Product.Thumbnail)" width="113" height="113" alt="shop-cart"></figure>
+                                                </a>
+                                            </div>
+                                            <div class="info">
+                                                <span class="txt-quantity">X @item.Quantity</span>
+                                                <a href="@Url.Action("Detail", "Items", new { id = item.Product.ProductID })" class="pr-name">@item.Product.ProductName</a>
+                                            </div>
+                                            <div class="price price-contain">
+                                                <ins><span class="price-amount"><span class="currencySymbol">$</span>@item.Product.UnitPrice</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">$</span>@item.Product.OldUnitPrice</span></del>
+                                            </div>
                                         </div>
-                                        <div class="info">
-                                            <span class="txt-quantity">1X</span>
-                                            <a href="#" class="pr-name">National Fresh Fruit</a>
-                                        </div>
-                                        <div class="price price-contain">
-                                            <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                            <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="cart-elem">
-                                    <div class="cart-item">
-                                        <div class="product-thumb">
-                                            <a class="prd-thumb" href="#">
-                                                <figure><img src="assets/images/shippingcart/pr-02.jpg" width="113" height="113" alt="shop-cart"></figure>
-                                            </a>
-                                        </div>
-                                        <div class="info">
-                                            <span class="txt-quantity">1X</span>
-                                            <a href="#" class="pr-name">National Fresh Fruit</a>
-                                        </div>
-                                        <div class="price price-contain">
-                                            <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                            <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                }
                             </ul>
-                            <ul class="subtotal">
-                                <li>
-                                    <div class="subtotal-line">
-                                        <b class="stt-name">Subtotal</b>
-                                        <span class="stt-price">£170.00</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="subtotal-line">
-                                        <b class="stt-name">Shipping</b>
-                                        <span class="stt-price">£20.00</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="subtotal-line">
-                                        <b class="stt-name">Tax</b>
-                                        <span class="stt-price">£0.00</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="subtotal-line">
-                                        <a href="#" class="link-forward">Promo/Gift Certificate</a>
-                                    </div>
-                                </li>
+                            <ul class="subtotal"> 
                                 <li>
                                     <div class="subtotal-line">
                                         <b class="stt-name">total:</b>
-                                        <span class="stt-price">£190.00</span>
+                                        <span class="stt-price">$ @ViewBag.TotalTogether</span>
                                     </div>
                                 </li>
                             </ul>

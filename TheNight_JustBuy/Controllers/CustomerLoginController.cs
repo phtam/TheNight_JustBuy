@@ -57,6 +57,7 @@ namespace TheNight_JustBuy.Controllers
                     var us = new CustomerInformation(user);
                     Session.Add(Common.CommonConstants.USER_LOGIN_MODEL, us);
                     TempData.Add(Common.CommonConstants.LOGIN_SUCCESSFULLY, true);
+                    
 
                     return RedirectToAction("Index", "Home");
                 }
